@@ -36,12 +36,13 @@ const DashBoard = () => {
       </div>
     )
   }
-  /*
-  const raitngSort = {
-    ascending: (a:Rating, b) => a.value - b.value,
-    descending: (a, b) => b.value - a.value,
+
+  const linkCol = (value:string) =>{
+    var url = 'https://www.binance.com/ja/futures/' + value + 'USDT'
+    return (
+      <a target='_blank' href={url} style={{color:"#FFFFFF"}}>{value}</a>
+    )
   }
-  */
   
   return(
     <MaterialTable 
@@ -52,7 +53,7 @@ const DashBoard = () => {
       { 
         title: 'Symbol',
         field: 'symbol',
-        render: row => (row.symbol.replace('USDT','')),
+        render: row => linkCol(row.symbol.replace('USDT','')),
         type:'string',
         width:80,
       },

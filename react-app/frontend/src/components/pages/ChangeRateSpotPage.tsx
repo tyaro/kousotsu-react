@@ -20,6 +20,12 @@ const CRDashBoard = () => {
       <div style={{color:c}}>{params}%</div>
     )
   }
+  const linkCol = (value:string) =>{
+    var url = 'https://www.binance.com/ja/futures/' + value + 'USDT'
+    return (
+      <a target='_blank' href={url} style={{color:"#FFFFFF"}}>{value}</a>
+    )
+  }
   
   return(
     <MaterialTable
@@ -27,7 +33,7 @@ const CRDashBoard = () => {
       { 
         title: 'Symbol',
         field: 'pair',
-        render: row => (row.pair.replace('USDT','')),
+        render: row => linkCol(row.pair.replace('USDT','')),
         type:'string',
       },
       { 

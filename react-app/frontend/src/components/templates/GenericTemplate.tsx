@@ -22,6 +22,8 @@ import ListIcon from "@material-ui/icons/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import MobileScreenShareIcon from '@material-ui/icons/MobileScreenShare';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 const drawerWidth = 240;
 
@@ -226,7 +228,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
             <Link to="/kst" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <ListIcon />
+                <img src={`${process.env.PUBLIC_URL}/img4.png`} width='32' height="32" alt=""/>
                 </ListItemIcon>
                 <ListItemText primary="高卒たんメソッド" />
               </ListItem>
@@ -245,6 +247,22 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                   <ListIcon />
                 </ListItemIcon>
                 <ListItemText primary="変動率(現物)" />
+              </ListItem>
+            </Link>
+            <Link to="/mobile" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <MobileScreenShareIcon />
+                </ListItemIcon>
+                <ListItemText primary="モバイル版" />
+              </ListItem>
+            </Link>
+            <Link to="/kojiki" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <AccountBalanceWalletIcon />
+                </ListItemIcon>
+                <ListItemText primary="(´･ω･｀) " />
               </ListItem>
             </Link>
           </List>
