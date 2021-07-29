@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { createMuiTheme } from "@material-ui/core/styles";
-//import * as colors from "@material-ui/core/colors";
+import * as colors from "@material-ui/core/colors";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,7 +18,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
-import ListIcon from "@material-ui/icons/List";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -44,8 +44,7 @@ const theme = createMuiTheme({
     ].join(","),
   },
   palette: {
-    //primary: { main: colors.blue[800] }, // テーマの色
-    type: "dark",
+    primary: { main: colors.blue[800] }, // テーマの色
   },
 });
 
@@ -118,11 +117,11 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto",
     },
     container: {
-      paddingTop: theme.spacing(2),
+      paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
     },
     paper: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(2),
       display: "flex",
       overflow: "auto",
       flexDirection: "column",
@@ -139,7 +138,7 @@ const Copyright = () => {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" to="/">
-        高卒たん理論の際限をPythonで目指すスレ
+        管理画面
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -193,7 +192,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               noWrap
               className={classes.title}
             >
-              Crytpo Info
+              管理画面
             </Typography>
           </Toolbar>
         </AppBar>
@@ -219,28 +218,19 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemText primary="トップページ" />
               </ListItem>
             </Link>
-            <Link to="/kousotsu" className={classes.link}>
+            <Link to="/product" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <ListIcon />
+                  <ShoppingCartIcon />
                 </ListItemIcon>
-                <ListItemText primary="高卒たんメソッド" />
-              </ListItem>
-            </Link>
-            <Link to="/CRList" className={classes.link}>
-              <ListItem button>
-                <ListItemIcon>
-                  <ListIcon />
-                </ListItemIcon>
-                <ListItemText primary="高卒たんメソッド" />
+                <ListItemText primary="商品ページ" />
               </ListItem>
             </Link>
           </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Container maxWidth='xl' className={classes.container}>
-          {/*<Container fixed className={classes.container}>*/}
+          <Container maxWidth="lg" className={classes.container}>
             <Typography
               component="h2"
               variant="h5"
@@ -251,7 +241,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               {title}
             </Typography>
             {children}
-            <Box pt={2}>
+            <Box pt={4}>
               <Copyright />
             </Box>
           </Container>

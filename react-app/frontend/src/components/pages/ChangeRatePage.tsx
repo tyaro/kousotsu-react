@@ -3,10 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import GenericTemplate from '../templates/GenericTemplate';
 import useSWR  from 'swr';
-/*
-import { fontStyle } from '@material-ui/system';
-import { colors } from '@material-ui/core';
-*/
+
 type Props = {} & RouteComponentProps<{}>;
 
 const CRDashBoard = () => {
