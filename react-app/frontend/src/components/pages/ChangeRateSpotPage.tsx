@@ -8,7 +8,7 @@ type Props = {} & RouteComponentProps<{}>;
 
 const CRDashBoard = () => {
   const {data : info} = useSWR(
-    'https://kousotsu-py.info/cryptoinfo/json/ChangeRate'
+    'https://kousotsu-py.info/cryptoinfo/json/ChangeRateSpot'
     ,{refreshInterval:3000}
     )
   
@@ -29,11 +29,6 @@ const CRDashBoard = () => {
         field: 'pair',
         render: row => (row.pair.replace('USDT','')),
         type:'string',
-        /*
-        cellStyle:{
-          backgroundColor:"#000000"
-        }
-        */
       },
       { 
         title: 'Price', 
@@ -80,6 +75,13 @@ const CRDashBoard = () => {
         field: 'CRate720', 
         render: row => percentDataStyle(row.CRate720),
       },
+      /*
+      { 
+        title: 'CalcTime', 
+        field: 'calcTime',
+        type:'datetime',
+      },
+      */
     ]}
     data={info}
     options={{
@@ -88,30 +90,25 @@ const CRDashBoard = () => {
       rowStyle:{
         height:10,
       },
-      /*
-      fixedColumns:{
-        left:1,
-        right:0,
-      },
-      */
       maxBodyHeight:800,      
       headerStyle:{
         position:'sticky',top:0,
       },
       searchFieldAlignment:'left',
+
     }}
   />
   )
 }
 
-const ChangeRateSpotPage: React.FC<Props> = (props) => {
+const ChangeRatePage: React.FC<Props> = (props) => {
   
   return (
-    <GenericTemplate title={'変動率(先物)'}>
+    <GenericTemplate title={'変動率(現物)'}>
       <CRDashBoard/>
     </GenericTemplate>
   );
 };
 
-export default withRouter(ChangeRateSpotPage);
+export default withRouter(ChangeRatePage);
 

@@ -18,7 +18,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ListIcon from "@material-ui/icons/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -44,9 +44,11 @@ const theme = createMuiTheme({
     ].join(","),
   },
   palette: {
-    primary: { main: colors.blue[800] }, // テーマの色
+    //primary: { main: colors.blue[800] }, // テーマの色
+    type: "dark"
   },
 });
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -119,16 +121,19 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
+      marginLeft: "0px",
     },
     paper: {
       padding: theme.spacing(2),
       display: "flex",
       overflow: "auto",
       flexDirection: "column",
+      marginLeft: "0px",
     },
     link: {
       textDecoration: "none",
-      color: theme.palette.text.secondary,
+      //color: theme.palette.text.primary,
+      color: "#FFFFFF",
     },
   })
 );
@@ -137,8 +142,8 @@ const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" to="/">
-        管理画面
+      <Link style={{color:"#FFFFFF"}} to="/">
+      高卒たん理論の際限をPythonで目指すスレ
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -192,7 +197,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               noWrap
               className={classes.title}
             >
-              管理画面
+              Crypto Info
             </Typography>
           </Toolbar>
         </AppBar>
@@ -215,15 +220,31 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary="トップページ" />
+                <ListItemText primary="ダッシュボード" />
               </ListItem>
             </Link>
-            <Link to="/product" className={classes.link}>
+            <Link to="/kst" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <ShoppingCartIcon />
+                  <ListIcon />
                 </ListItemIcon>
-                <ListItemText primary="商品ページ" />
+                <ListItemText primary="高卒たんメソッド" />
+              </ListItem>
+            </Link>
+            <Link to="/CRList" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="変動率(先物)" />
+              </ListItem>
+            </Link>
+            <Link to="/CRListSpot" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="変動率(現物)" />
               </ListItem>
             </Link>
           </List>
