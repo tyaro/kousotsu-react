@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { createMuiTheme } from "@material-ui/core/styles";
-import * as colors from "@material-ui/core/colors";
+//import * as colors from "@material-ui/core/colors";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,7 +18,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ListIcon from "@material-ui/icons/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -44,7 +44,8 @@ const theme = createMuiTheme({
     ].join(","),
   },
   palette: {
-    primary: { main: colors.blue[800] }, // テーマの色
+    //primary: { main: colors.blue[800] }, // テーマの色
+    type: "dark",
   },
 });
 
@@ -117,11 +118,11 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto",
     },
     container: {
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(4),
     },
     paper: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(1),
       display: "flex",
       overflow: "auto",
       flexDirection: "column",
@@ -138,7 +139,7 @@ const Copyright = () => {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" to="/">
-        管理画面
+        高卒たん理論の際限をPythonで目指すスレ
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -192,7 +193,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               noWrap
               className={classes.title}
             >
-              管理画面
+              Crytpo Info
             </Typography>
           </Toolbar>
         </AppBar>
@@ -221,7 +222,15 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
             <Link to="/kousotsu" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <ShoppingCartIcon />
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="高卒たんメソッド" />
+              </ListItem>
+            </Link>
+            <Link to="/CRList" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
                 </ListItemIcon>
                 <ListItemText primary="高卒たんメソッド" />
               </ListItem>
@@ -230,7 +239,8 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
+          <Container maxWidth='xl' className={classes.container}>
+          {/*<Container fixed className={classes.container}>*/}
             <Typography
               component="h2"
               variant="h5"
@@ -241,7 +251,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               {title}
             </Typography>
             {children}
-            <Box pt={4}>
+            <Box pt={2}>
               <Copyright />
             </Box>
           </Container>
