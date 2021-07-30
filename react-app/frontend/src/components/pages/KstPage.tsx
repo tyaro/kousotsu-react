@@ -185,7 +185,7 @@ const DashBoard = () => {
       { 
         title: <div>BTC<br/>連動率<br/>下落</div>, 
         field: 'BTCFRDown',
-        render: row => (percentDataStyle(row.BTCFRUp)),
+        render: row => (percentDataStyle(row.BTCFRDown)),
         width:70,
         customSort:(a,b)=>a.BTCFRDown-b.BTCFRDown
       },

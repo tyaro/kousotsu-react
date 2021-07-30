@@ -8,10 +8,10 @@ type Props = {} & RouteComponentProps<{}>;
 
 const CRDashBoard = () => {
   const {data : info} = useSWR(
-    'https://kousotsu-py.info/cryptoinfo/json/ChangeRateSpot'
+    'https://kousotsu-py.info/cryptoinfo/json/HighLowAnalysis'
     ,{refreshInterval:3000}
     )
-  
+  console.log(info)
   const percentDataStyle = (params:Number) => {
     var c = '#FFFFFF'
     if (params < 0){c = '#E35561'}
@@ -21,13 +21,13 @@ const CRDashBoard = () => {
     )
   }
   const linkCol = (value:string) =>{
-    var url = 'https://www.binance.com/ja/trade/' + value + '_USDT'
+    var url = 'https://www.binance.com/ja/futures/' + value + 'USDT'
     return (
       <a target='_blank' href={url} style={{color:"#FFFFFF"}}>{value}</a>
     )
   }
-  
   return(
+    /*
     <MaterialTable
     columns={[
       { 
@@ -81,13 +81,6 @@ const CRDashBoard = () => {
         field: 'CRate720', 
         render: row => percentDataStyle(row.CRate720),
       },
-      /*
-      { 
-        title: 'CalcTime', 
-        field: 'calcTime',
-        type:'datetime',
-      },
-      */
     ]}
     data={info}
     options={{
@@ -101,20 +94,20 @@ const CRDashBoard = () => {
         position:'sticky',top:0,
       },
       searchFieldAlignment:'left',
-
     }}
-  />
+  />*/
+  <>作成中</>
   )
 }
 
-const ChangeRatePage: React.FC<Props> = (props) => {
+const HighLowAnalysisPage: React.FC<Props> = (props) => {
   
   return (
-    <GenericTemplate title={'変動率(現物)'}>
+    <GenericTemplate title={'高値,安値時間帯分析'}>
       <CRDashBoard/>
     </GenericTemplate>
   );
 };
 
-export default withRouter(ChangeRatePage);
+export default withRouter(HighLowAnalysisPage);
 

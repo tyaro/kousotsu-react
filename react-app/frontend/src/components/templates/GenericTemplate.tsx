@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
-import { createMuiTheme } from "@material-ui/core/styles";
-import * as colors from "@material-ui/core/colors";
+//import { createMuiTheme } from "@material-ui/core/styles";
+//import * as colors from "@material-ui/core/colors";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -24,10 +24,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MobileScreenShareIcon from '@material-ui/icons/MobileScreenShare';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import { createTheme } from '@material-ui/core/styles'
 
 const drawerWidth = 240;
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: [
       "Noto Sans JP",
@@ -247,6 +248,14 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                   <ListIcon />
                 </ListItemIcon>
                 <ListItemText primary="変動率(現物)" />
+              </ListItem>
+            </Link>
+            <Link to="/HighLowAnalysis" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="高値安値分析" />
               </ListItem>
             </Link>
             <Link to="/mobile" className={classes.link}>
