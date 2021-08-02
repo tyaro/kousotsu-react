@@ -7,6 +7,8 @@ import ChangeRateSpotPage from "./components/pages/ChangeRateSpotPage";
 import HomePage from "./components/pages/HomePage";
 import btcPage from "./components/pages/btcPage";
 import HighLowAnalysisPage from "./components/pages/HighLowAnalysisPage";
+import CompareChangeRatePage from "./components/pages/CompareChangeRatePage";
+
 
 const App: React.FC = () => {
   return (
@@ -17,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/CRList" component={ChangeRatePage} exact />
         <Route path="/CRListSpot" component={ChangeRateSpotPage} exact />
         <Route path="/HighLowAnalysis" component={HighLowAnalysisPage} exact />
+        <Route path="/CompareChangeRate" component={CompareChangeRatePage} exact />
         <Route path="/mobile" component={()=>{
           window.location.href = 'https://kousotsu-py.info/mobile';
           return null;

@@ -122,16 +122,17 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto",
     },
     container: {
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(4),
       marginLeft: "0px",
     },
     paper: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(1),
       display: "flex",
       overflow: "auto",
       flexDirection: "column",
       marginLeft: "0px",
+      marginTop: "0px",
     },
     link: {
       textDecoration: "none",
@@ -255,7 +256,15 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemIcon>
                   <ListIcon />
                 </ListItemIcon>
-                <ListItemText primary="高値安値分析" />
+                <ListItemText primary="高値安値分析(作成中)" />
+              </ListItem>
+            </Link>
+            <Link to="/CompareChangeRate" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="BTC/ALT比較" />
               </ListItem>
             </Link>
             <Link to="/mobile" className={classes.link}>
