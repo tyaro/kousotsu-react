@@ -256,7 +256,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemIcon>
                   <ListIcon />
                 </ListItemIcon>
-                <ListItemText primary="高値安値分析(作成中)" />
+                <ListItemText primary="オカルト分析" />
               </ListItem>
             </Link>
             <Link to="/CompareChangeRate" className={classes.link}>
