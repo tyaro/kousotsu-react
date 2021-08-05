@@ -267,6 +267,14 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemText primary="BTC/ALT比較" />
               </ListItem>
             </Link>
+            <Link to="/Test" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="開発中ページ" />
+              </ListItem>
+            </Link>
             <Link to="/mobile" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
