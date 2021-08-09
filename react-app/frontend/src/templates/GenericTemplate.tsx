@@ -251,6 +251,14 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemText primary="変動率(現物)" />
               </ListItem>
             </Link>
+            <Link to="/CRListSpotBTC" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="変動率(BTC)" />
+              </ListItem>
+            </Link>
             <Link to="/HighLowAnalysis" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
@@ -265,6 +273,14 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                   <ListIcon />
                 </ListItemIcon>
                 <ListItemText primary="BTC/ALT比較" />
+              </ListItem>
+            </Link>
+            <Link to="/Technical" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="テクニカル分析" />
               </ListItem>
             </Link>
             <Link to="/Test" className={classes.link}>

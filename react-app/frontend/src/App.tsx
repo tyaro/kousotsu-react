@@ -1,15 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import KstPage from "./components/pages/KstPage";
-import ChangeRatePage from "./components/pages/ChangeRatePage";
-import ChangeRateSpotPage from "./components/pages/ChangeRateSpotPage";
-import HomePage from "./components/pages/HomePage";
-import btcPage from "./components/pages/btcPage";
-import HighLowAnalysisPage from "./components/pages/HighLowAnalysisPage";
-import CompareChangeRatePage from "./components/pages/CompareChangeRatePage";
-import TestPage from "./components/pages/TestPage";
-
+import KstPage from "./pages/KstPage";
+import ChangeRatePage from "./pages/ChangeRatePage";
+import ChangeRateSpotPage from "./pages/ChangeRateSpotPage";
+import ChangeRateSpotBtcPage from "./pages/ChangeRateSpotBtcPage";
+import HomePage from "./pages/HomePage";
+import btcPage from "./pages/btcPage";
+import HighLowAnalysisPage from "./pages/HighLowAnalysisPage";
+import CompareChangeRatePage from "./pages/CompareChangeRatePage";
+import TestPage from "./pages/TestPage";
+import TechnicalPage from "./pages/TechnicalPage";
 
 const App: React.FC = () => {
   return (
@@ -19,9 +20,11 @@ const App: React.FC = () => {
         <Route path="/kojiki" component={btcPage} exact />
         <Route path="/CRList" component={ChangeRatePage} exact />
         <Route path="/CRListSpot" component={ChangeRateSpotPage} exact />
+        <Route path="/CRListSpotBtc" component={ChangeRateSpotBtcPage} exact />
         <Route path="/HighLowAnalysis" component={HighLowAnalysisPage} exact />
         <Route path="/CompareChangeRate" component={CompareChangeRatePage} exact />
         <Route path="/Test" component={TestPage} exact />
+        <Route path="/Technical" component={TechnicalPage} exact />
         <Route path="/mobile" component={()=>{
           window.location.href = 'https://kousotsu-py.info/mobile';
           return null;
