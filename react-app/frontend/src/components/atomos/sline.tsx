@@ -1,6 +1,6 @@
 // 値と一緒に Sparkline を表示する
 
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 // 価格表示 With SparkLine
@@ -19,7 +19,24 @@ export const slinePrice = (price:any)=>{
         </Box>
     )
 }
-  
+// 価格表示 With SparkLine
+export const slinePrice2 = (price:any)=>{
+  var lastPrice = price.Value
+  var preLastPrice = price.Trend.slice(-2)
+  var c = '#FFFFFF'
+  if (lastPrice < preLastPrice){c = '#E35561'}
+  if (lastPrice > preLastPrice){c = '#5CC686'}
+  return(
+      <Box width={100} height={35} style={{marginTop:0}}>
+        <Typography>
+          <div style={{color:c}} >${lastPrice}</div>
+        </Typography>
+        <Sparklines data={price.Trend}>
+          <SparklinesLine />
+      </Sparklines>
+      </Box>
+  )
+}
 // RSI With SparkLine
 export const slineRSI = (value:any)=>{
     var lastValue = value.VALUE
@@ -62,4 +79,30 @@ export const slineBBWR = (value:any)=>{
         </Sparklines>
       </Box>
     )
+}
+
+export const SlineTrend = (props:{value?:any})=>{
+  return(
+    <Box style={{display:'flex',flex:1,flexDirection:'row'}} height={40}>
+      <Box style={{flex:1}} maxWidth={80} maxHeight={40} paddingRight={1}>
+        <div style={{fontSize:'0.5em'}}>1min</div>
+        <Sparklines data={props.value['1M']}>
+            <SparklinesLine color={'white'}/>
+        </Sparklines>
+      </Box>
+      <Box/>
+      <Box style={{flex:2}} maxWidth={80} maxHeight={40} paddingRight={1}>
+        <div style={{fontSize:'0.5em'}}>1hour</div>
+        <Sparklines data={props.value['1H']}>
+            <SparklinesLine color={'white'}/>
+        </Sparklines>
+      </Box>
+      <Box style={{flex:3}} maxWidth={80} maxHeight={40} paddingRight={1}>
+      <div style={{fontSize:'0.5em'}}>1day</div>
+        <Sparklines data={props.value['1D']}>
+            <SparklinesLine color={'white'}/>
+        </Sparklines>
+      </Box>
+    </Box>
+  )
 }

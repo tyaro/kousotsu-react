@@ -1,0 +1,130 @@
+import MaterialTable from '@material-table/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box'
+
+const Dashboard = (btc:any) => {
+    const percentDataStyle = (params:Number) => {
+        var c = '#FFFFFF'
+        if (params < 0){c = '#E35561'}
+        if (params > 0){c = '#5CC686'}
+        return (
+          <div style={{color:c}}>{params}%</div>
+        )
+    }
+    const useStyles = makeStyles({
+      root: {
+        minWidth: 1000,
+        maxWidth: 1000,
+      },
+      bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+      },
+      title: {
+        fontSize: 14,
+      },
+      pos: {
+        marginBottom: 12,
+      },
+    });
+  
+    const classes = useStyles();
+  
+    var info = _.values(btc)[0]
+    var price = _.map(info,'price')[0]
+    return (
+      <div>
+        <Box width={500}>
+          <MaterialTable 
+            style={{
+              width:320,
+            }}
+            title={"BTCUSDT "+ " $" + price}
+            columns={[
+              {
+                title: '5min', 
+                field: 'CRate05',
+                render: row => percentDataStyle(row.CRate05),
+                width:35,
+              },
+              { 
+                title: '10min', 
+                field: 'CRate10',
+                render: row => percentDataStyle(row.CRate10),
+                width:35,
+              },
+              { 
+                title: '30min', 
+                field: 'CRate30', 
+                render: row => percentDataStyle(row.CRate30),
+                width:35,
+              },
+              { 
+                title: '60min', 
+                field: 'CRate60',
+                render: row => percentDataStyle(row.CRate60),
+                width:35,
+              },
+              { 
+                title: '4Hour', 
+                field: 'CRate240', 
+                render: row => percentDataStyle(row.CRate240),
+                width:35,
+              },
+              { 
+                title: '6Hour', 
+                field: 'CRate360',
+                render: row => percentDataStyle(row.CRate360),
+                width:35,
+              },
+              { 
+                title: '8Hour', 
+                field: 'CRate480',
+                render: row => percentDataStyle(row.CRate480),
+                width:35,
+              },
+              { 
+                title: '12Hour', 
+                field: 'CRate720', 
+                render: row => percentDataStyle(row.CRate720),
+                width:35,
+              },
+              {
+                width:35,
+              },
+            ]}
+            data={info}
+            options={{
+              search:false,
+              sorting:false,
+              paging:false,
+              tableLayout:'fixed',
+              columnResizable:false,
+              maxBodyHeight:200,
+              headerStyle:{
+                whiteSpace:'nowrap',
+                fontSize:'0.5em',
+                height:10,
+                //padding:'0px',
+                paddingBottom:'0px',
+                paddingTop:'0px',
+                paddingRight:'10px',
+              },
+              rowStyle:{
+                height:10,
+                whiteSpace:'nowrap',
+                fontSize:'0.5em',
+                paddingBottom:'0px',
+                paddingTop:'0px',
+                paddingRight:'0px',
+                marginTop:'0px',
+              },
+            }}
+          />
+        </Box>
+      </div>
+    );
+  }
+
+  export default Dashboard;
