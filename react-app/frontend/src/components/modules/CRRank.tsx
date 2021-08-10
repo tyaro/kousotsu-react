@@ -5,10 +5,12 @@ import CRLRankList from '../block/CRRankListLower';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const Dashboard = () => {
+    /*
   const {data : info} = useSWR(
       'https://kousotsu-py.info/cryptoinfo/API/CRRank/UPR5M'
       ,{refreshInterval:30000}
   )
+  */
 
   return (
     <>

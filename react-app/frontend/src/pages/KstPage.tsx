@@ -170,7 +170,7 @@ const DashBoard = () => {
         customSort:(a,b)=>a.DREMA200BTC-b.DREMA200BTC
       },
       { 
-        title: <div>RSI(14)<br/>4時間足</div>, 
+        title: <div>RSI(14)<br/>6時間足</div>, 
         field: 'RSI14_1D',
         width:70,
         customSort:(a,b)=>a.RSI14_1D-b.RSI14_1D

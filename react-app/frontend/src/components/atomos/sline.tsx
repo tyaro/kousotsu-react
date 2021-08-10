@@ -1,6 +1,6 @@
 // 値と一緒に Sparkline を表示する
 
-import { Box, Typography } from '@material-ui/core';
+import { Card,Box, Typography } from '@material-ui/core';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 // 価格表示 With SparkLine
@@ -52,7 +52,6 @@ export const slineRSI = (value:any)=>{
         </Box>
     )
 }
-
 // BB%B with Sparkline
 export const slineBBB = (value:any)=>{
     var lastValue = value.VALUE
@@ -106,3 +105,21 @@ export const SlineTrend = (props:{value?:any})=>{
     </Box>
   )
 }
+// RSI With SparkLine
+export const SlineRSI = (props:{value?:any})=>{
+  var lastValue = props.value.VALUE
+  var c = '#FFFFFF'
+  if (lastValue < 30){c = '#E35561'}
+  if (lastValue > 70){c = '#5CC686'}
+  return(
+      <Card style={{width:120,height:60}}>
+      <Typography>
+        <div style={{color:c}}>{lastValue}</div>
+      </Typography>
+      <Sparklines data={props.value.TREND} >
+          <SparklinesLine color={c} />
+      </Sparklines>
+      </Card>
+  )
+}
+

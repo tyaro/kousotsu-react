@@ -1,6 +1,6 @@
 import MaterialTable from '@material-table/core';
-import { slinePrice2 } from '../atomos/sline';
-import { linkBinanceFeature } from '../atomos/link';
+import { slinePrice2 } from './sline';
+import { linkBinanceFeature } from './link';
 
 export const Dashboard = (props:{data?:any}) => {
     const percentCol = (value:any) => {
