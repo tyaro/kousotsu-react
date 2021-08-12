@@ -1,6 +1,6 @@
 import useSWR from 'swr';
-import { Box,Typography } from '@material-ui/core';
-import RankList from '../atomos/CRankDashboard';
+import RankList from './Dashboard';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const Dashboard = () => {
     const {data : info5M} = useSWR(
@@ -22,24 +22,26 @@ const Dashboard = () => {
       
   return (
     <>
-    <div style={{display:'flex',flex:1,flexDirection:'row'}}>
-        <Box style={{flex:1}}>
-            <Typography>5min</Typography>
+        <Tabs>
+            <TabPanel>
             <RankList data={info5M} />
-        </Box>
-        <Box style={{flex:2}}>
-            <Typography>1hour</Typography>
+            </TabPanel>
+            <TabPanel>
             <RankList data={info1H} />
-        </Box>
-        <Box style={{flex:1}}>
-            <Typography>4hour</Typography>
+            </TabPanel>
+            <TabPanel>
             <RankList data={info4H} />
-        </Box>
-        <Box style={{flex:1}}>
-        <Typography>12hour</Typography>
+            </TabPanel>
+            <TabPanel>
             <RankList data={info12H} />
-        </Box>
-    </div>
+            </TabPanel>
+            <TabList>
+            <Tab>5min</Tab>
+            <Tab>1hour</Tab>
+            <Tab>4hour</Tab>
+            <Tab>12hour</Tab>
+            </TabList>
+        </Tabs>
     </>
   )
 }

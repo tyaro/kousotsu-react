@@ -1,5 +1,5 @@
 import MaterialTable from '@material-table/core';
-import { slinePrice2 } from '../atomos/sline';
+import { slinePrice2, SparklinePrice } from '../atomos/sline';
 import { linkBinanceFeature } from '../atomos/link';
 
 
@@ -17,6 +17,7 @@ export const Dashboard = (props:{data?:any}) => {
         <MaterialTable
         style={{
           width:880,
+          backgroundColor:'#222222',
         }}  
         columns={[
           { 
@@ -114,10 +115,15 @@ export const Dashboard = (props:{data?:any}) => {
           tableLayout:'fixed',
           rowStyle:{
             height:10,
+            backgroundColor:'black',
           },
           maxBodyHeight:800,      
           headerStyle:{
             position:'sticky',top:0,
+            backgroundColor:'#222222'
+          },
+          searchFieldStyle:{
+            backgroundColor:'#222222'
           },
           searchFieldAlignment:'left',
   

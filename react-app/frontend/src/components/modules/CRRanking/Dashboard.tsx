@@ -1,23 +1,32 @@
 import MaterialTable from '@material-table/core';
-import { slinePrice2 } from './sline';
-import { linkBinanceFeature } from './link';
+import { SparklinePriceCR } from '../../atomos/sline';
+import { linkBinanceFeature } from '../../atomos/link';
+import { Typography } from '@material-ui/core';
 
-export const Dashboard = (props:{data?:any}) => {
-    const percentCol = (value:any) => {
-        return (
-            <div>{value}%</div>
-        )
-    }
+export const Dashboard = (props:{title?:string,data?:any}) => {
+
+  const percentCol = (value:any) => {
+    var c = '#FFFFFF'
+    if (value < 0){c = '#E35561'}
+    if (value > 0){c = '#5CC686'}
+      return (
+          <Typography style={{color:c}}>{value}%</Typography>
+      )
+  }
   return (
+    <>
+    <Typography>{props.title}</Typography>
     <MaterialTable
     style={{
       width:345,
+      backgroundColor:'#111111',
     }}
     columns={[
       { 
         title: 'Rank',
         field: 'Rank',
         width: 50,
+        render: row => <Typography style={{fontSize:'1.5em'}}>{row.Rank}</Typography>
       },
       { 
         title: 'Symbol',
@@ -29,9 +38,8 @@ export const Dashboard = (props:{data?:any}) => {
       {
         title: <div>Price</div>,
         field: 'Price',
-        render: row => slinePrice2(row.Price),
+        render: row => SparklinePriceCR({price:row.Price,crate:row.CRate}),
         width:120,
-        customSort:(a,b)=>a.Price.VALUE-b.Price.VALUE,
       },
       {
         title: <div>％</div>,
@@ -57,7 +65,7 @@ export const Dashboard = (props:{data?:any}) => {
         paddingBottom:1,
       },
       header:true,
-      maxBodyHeight:380,      
+      minBodyHeight:710,      
       headerStyle:{
         position:'sticky',top:0,
         maxHeight:30,
@@ -73,6 +81,7 @@ export const Dashboard = (props:{data?:any}) => {
       }
     }}  
   />
+  </>
   )
 }
 

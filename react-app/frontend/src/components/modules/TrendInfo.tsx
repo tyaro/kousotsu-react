@@ -19,7 +19,7 @@ const Dashboard = (props:{symbol?:string}) => {
   var price = info.Value
   return (
     <>
-    <Card style={{display:'inline-block',width:240,marginRight:5}}>
+    <Card style={{display:'inline-block',width:240,marginRight:5,backgroundColor:'#111111'}}>
         <Box style={{display:'flex',flex:1,flexDirection:'row',marginLeft:5,marginBottom:5}}>
             <Box style={{flex:1}} maxWidth={100}>
                 <Typography>

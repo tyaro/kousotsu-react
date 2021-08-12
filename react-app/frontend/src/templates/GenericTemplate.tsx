@@ -147,7 +147,7 @@ const Copyright = () => {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link style={{color:"#FFFFFF"}} to="/">
-      高卒たん理論の際限をPythonで目指すスレ
+      高卒たん理論の再現をPythonで目指すスレ
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -304,7 +304,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemIcon>
                   <AccountBalanceWalletIcon />
                 </ListItemIcon>
-                <ListItemText primary="(´･ω･｀) " />
+                <ListItemText primary="Donate" />
               </ListItem>
             </Link>
           </List>

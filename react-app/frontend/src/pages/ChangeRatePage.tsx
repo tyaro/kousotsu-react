@@ -1,6 +1,5 @@
 import React ,{useState,useEffect} from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import MaterialTable from '@material-table/core';
 import GenericTemplate from '../templates/GenericTemplate';
 import useSWR  from 'swr';
 import _, { isNull, isUndefined, values } from 'lodash';
@@ -13,21 +12,9 @@ import TrendInfo from '../components/modules/TrendInfo';
 
 type Props = {} & RouteComponentProps<{}>;
 
-
-const linkCol = (value:string) =>{
-  var url = 'https://www.binance.com/ja/futures/' + value + 'USDT'
-  return (
-    <a target='_blank' href={url} style={{color:"#FFFFFF"}}>{value}</a>
-  )
-}
-
-
-
-
-
 const CRDashBoard = () => {
   const {data : info} = useSWR(
-    'https://kousotsu-py.info/cryptoinfo/API/CRFuture'
+    'https://kousotsu-py.info/cryptoinfo/API/CR'
     ,{refreshInterval:3000}
   )
   const [notifyVal,setNotifyVal] = React.useState<number | Array<number>>(3);

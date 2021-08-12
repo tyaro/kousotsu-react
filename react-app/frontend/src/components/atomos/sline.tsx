@@ -1,7 +1,9 @@
 // 値と一緒に Sparkline を表示する
-
 import { Card,Box, Typography } from '@material-ui/core';
+import { isUndefined } from 'lodash';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
+import useSWR from 'swr';
+import _ from 'lodash';
 
 // 価格表示 With SparkLine
 export const slinePrice = (price:any)=>{
@@ -32,11 +34,12 @@ export const slinePrice2 = (price:any)=>{
           <div style={{color:c}} >${lastPrice}</div>
         </Typography>
         <Sparklines data={price.Trend}>
-          <SparklinesLine />
+          <SparklinesLine color={'white'}/>
       </Sparklines>
       </Box>
   )
 }
+
 // RSI With SparkLine
 export const slineRSI = (value:any)=>{
     var lastValue = value.VALUE
@@ -120,6 +123,74 @@ export const SlineRSI = (props:{value?:any})=>{
           <SparklinesLine color={c} />
       </Sparklines>
       </Card>
+  )
+}
+
+// 価格表示 With SparkLine
+export const SparklinePrice = (props:{price:any})=>{
+  var lastPrice = props.price.Value
+  var preLastPrice = props.price.Trend.slice(-2)
+  var c = '#FFFFFF'
+  if (lastPrice < preLastPrice){c = '#E35561'}
+  if (lastPrice > preLastPrice){c = '#5CC686'}
+  return(
+    <>
+      <Box width={100} height={35} style={{marginTop:0}}>
+        <Typography style={{color:c}}>${lastPrice}</Typography>
+        <Sparklines data={props.price.Trend}>
+          <SparklinesLine color='#FFFFFF'/>
+      </Sparklines>
+      </Box>
+    </>
+  )
+}
+
+// 価格表示 With SparkLine
+export const SparklinePriceCR = (props:{price:any,crate:any})=>{
+  var lastPrice = props.price.Value
+  var c = '#FFFFFF'
+  var bcc = '#FFFFFF'
+  if (props.crate < 0){c = '#E35561';bcc='red'}
+  if (props.crate > 0){c = '#5CC686';bcc='#00ff00'}
+  return(
+    <>
+      <Box width={100} height={35} style={{marginTop:0}}>
+        <Typography style={{color:c}}>${lastPrice}</Typography>
+        <Sparklines data={props.price.Trend}>
+          <SparklinesLine color={bcc} />
+      </Sparklines>
+      </Box>
+    </>
+  )
+}
+
+// 価格表示 With SparkLine
+export const SparklinePriceVol = (props:{value?:any,symbol?:string,span:string})=>{
+  var c = '#FFFFFF'
+  const {data : info} = useSWR(
+    'https://kousotsu-py.info/cryptoinfo/API/TrendPrice/'+props.symbol
+    ,{refreshInterval:30000}
+  )
+  if(isUndefined(info)){
+    return (
+      <div>now loading...</div>
+    )
+  }
+
+  var trendData = info.Trend[props.span]
+  var lastPrice = Number(trendData.slice(-1))
+  var avgPrice = _.mean(trendData.map(Number))
+  if (lastPrice < avgPrice){c = '#FF0000'}
+  if (lastPrice > avgPrice){c = '#00FF00'}
+  return(
+    <>
+      <Box width={95} height={35} style={{marginTop:0}}>
+        <Typography style={{color:'#FFFFFF'}}>{props.value}%</Typography>
+        <Sparklines data={trendData}>
+          <SparklinesLine color={c} />
+      </Sparklines>
+      </Box>
+    </>
   )
 }
 
