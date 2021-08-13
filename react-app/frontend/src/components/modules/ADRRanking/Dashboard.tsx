@@ -38,7 +38,7 @@ export const Dashboard = (props:{title?:string,data?:any}) => {
     <>
     <MaterialTable
     style={{
-      maxWidth:350,
+      maxWidth:360,
       backgroundColor:'#111111',
     }}
     columns={[
@@ -46,7 +46,8 @@ export const Dashboard = (props:{title?:string,data?:any}) => {
         title: 'Rank',
         field: 'Rank',
         width: 50,
-        render: row => <Typography style={{fontSize:'1.5em'}}>{row.Rank}</Typography>
+        render: row => <Typography style={{fontSize:'1.5em'}}>{row.Rank}</Typography>,
+        customSort:(a,b)=>(a.Rank - b.Rank),
       },
       { 
         title: 'Symbol',
@@ -67,13 +68,14 @@ export const Dashboard = (props:{title?:string,data?:any}) => {
         field: 'DV',
         render: row => dvCol(row.DV),
         width:100,
+        customSort:(a,b)=>(a.DV - b.DV),
       },      
     ]}
     data={info}
     options={{
-      toolbar:false,
+      toolbar:true,
       sorting:true,
-      search:false,
+      search:true,
       showTitle: false,
       paging:true,
       tableLayout:'fixed',
@@ -85,7 +87,7 @@ export const Dashboard = (props:{title?:string,data?:any}) => {
         paddingBottom:1,
       },
       header:true,
-      minBodyHeight:350,      
+      minBodyHeight:360,      
       headerStyle:{
         position:'sticky',top:0,
         maxHeight:30,
@@ -97,7 +99,7 @@ export const Dashboard = (props:{title?:string,data?:any}) => {
         paddingBottom:1,
       },
       searchFieldStyle:{
-          maxHeight:0,
+          maxHeight:20,
       }
     }}  
   />

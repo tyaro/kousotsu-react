@@ -54,7 +54,7 @@ export const Dashboard = (props:{title?:string,span?:any}) => {
   return (
     <MaterialTable
     style={{
-      maxWidth:450,
+      maxWidth:480,
       backgroundColor:'#111111',
     }}
     columns={[
@@ -62,7 +62,8 @@ export const Dashboard = (props:{title?:string,span?:any}) => {
         title: 'Rank',
         field: 'Rank',
         width: 50,
-        render: row => <Typography style={{fontSize:'1.5em'}}>{row.Rank}</Typography>
+        render: row => <Typography style={{fontSize:'1.5em'}}>{row.Rank}</Typography>,
+        customSort: (a,b)=>(a.Rank - b.Rank),
       },
       { 
         title: 'Symbol',
@@ -76,25 +77,28 @@ export const Dashboard = (props:{title?:string,span?:any}) => {
         field: 'TDR',
         render: row => tdrCol(row),
         width:110,
+        customSort:(a,b)=>(a.TDR - b.TDR),
       },      
       {
-        title: <div>AVG(%)</div>,
+        title: <div>AVG前日(%)</div>,
         field: 'Value',
         render: row => avgCol(row),
-        width:110,
+        width:135,
+        customSort:(a,b)=>(a.Value - b.Value),
       },      
       {
         title: <div>偏差値</div>,
         field: 'DV',
         render: row => dvCol(row.DV),
         width:100,
+        customSort:(a,b)=>(a.DV - b.DV),
       },      
     ]}
     data={info.Result}
     options={{
-      toolbar:false,
+      toolbar:true,
       sorting:true,
-      search:false,
+      search:true,
       showTitle: false,
       paging:true,
       tableLayout:'fixed',
@@ -118,7 +122,7 @@ export const Dashboard = (props:{title?:string,span?:any}) => {
         paddingBottom:1,
       },
       searchFieldStyle:{
-          maxHeight:0,
+          maxHeight:20,
       }
     }}  
   />

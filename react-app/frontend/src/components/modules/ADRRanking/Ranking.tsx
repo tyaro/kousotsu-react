@@ -12,8 +12,8 @@ const Dashboard = () => {
   )
   return (
     <>
-    <Card style={{padding:5,backgroundColor:'#111111',width:800}}>
-        <Typography style={{padding:5,fontSize:'1.5em'}}>ボラティリティランキング</Typography>
+    <Card style={{padding:5,backgroundColor:'#111111'}}>
+        <Typography style={{padding:5,fontSize:'1.5em'}}>ボラティリティランキング ※トレンドは価格推移</Typography>
         <tr>
         <td>
         <Card style={{backgroundColor:"black",padding:5}}>
@@ -27,13 +27,14 @@ const Dashboard = () => {
         </Card>
         </td>
         </tr>
-        <Accordion>
+        <Accordion square={false} >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          style={{height:20,paddingTop:0,paddingBottom:0,marginTop:0,marginBottom:0}}
         >
-          <Typography >Description</Typography>
+          <Typography style={{fontSize:'1em'}}>Description</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <Typography style={{paddingLeft:5,fontSize:'1em'}}>

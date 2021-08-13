@@ -3,28 +3,39 @@ import GenericTemplate from "../templates/GenericTemplate";
 import CRRank from '../components/modules/CRRanking/Ranking';
 import ADRRank from '../components/modules/ADRRanking/Ranking';
 import TrendInfo from '../components/modules/TrendInfo';
-import CRMedian from '../components/atomos/CRMedian';
+import CRMedian from '../components/modules/CRRatio/CRRatio';
 import CRInfo from '../components/atomos/CRInfoBTCALT';
+import CRMTrend from '../components/modules/CRMEvaluation/Dashboard';
+import { Typography } from "@material-ui/core";
 
 const HomePage: React.FC = () => {
   return (
     <GenericTemplate title={""}>
-      <>
       <tr>
-      <td><TrendInfo symbol={'BTCUSDT'}/></td>
-      <td><TrendInfo symbol={'BTCDOMUSDT'}/></td>
-      <td><TrendInfo symbol={'ETHUSDT'}/></td>
+          <td>
+            <tr>
+              <td><TrendInfo symbol={'BTCUSDT'}/></td>
+              <td><TrendInfo symbol={'BTCDOMUSDT'}/></td>
+              <td><TrendInfo symbol={'ETHUSDT'}/></td>
+            </tr>
+            <tr >
+              <td colSpan={3}>
+              <CRMedian />
+              <CRInfo symbol={'BTCUSDT'} />
+              </td>
+            </tr>
+          </td>
+          <td rowSpan={1}>
+          <CRMTrend />
+          </td>
       </tr>
-      <div><CRMedian /></div>
-      <CRInfo symbol={'BTCUSDT'} />
       <tr>
       <td><CRRank /></td>
       <td><ADRRank /></td>
       </tr>
-      <br/>
-      <div>ホーム画面はランキング形式のダッシュボードにする予定</div>
-      <div>モバイル版は<a href='https://kousotsu-py.info/mobile' style={{color:"#FFFFFF"}}>こちら</a></div>
-      </>
+      <br/><Typography>
+      モバイル版は<a href='https://kousotsu-py.info/mobile' style={{color:"#FFFFFF"}}>こちら</a>
+      </Typography>
     </GenericTemplate>
   );
 };

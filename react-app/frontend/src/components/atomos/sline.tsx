@@ -1,7 +1,7 @@
 // 値と一緒に Sparkline を表示する
 import { Card,Box, Typography } from '@material-ui/core';
-import { isUndefined } from 'lodash';
-import { Sparklines, SparklinesLine } from 'react-sparklines';
+import { isUndefined, sumBy } from 'lodash';
+import { Sparklines, SparklinesLine,SparklinesBars,SparklinesBarsProps } from 'react-sparklines';
 import useSWR from 'swr';
 import _ from 'lodash';
 
@@ -187,6 +187,31 @@ export const SparklinePriceVol = (props:{value?:any,symbol?:string,span:string})
       <Box width={95} height={35} style={{marginTop:0}}>
         <Typography style={{color:'#FFFFFF'}}>{props.value}%</Typography>
         <Sparklines data={trendData}>
+          <SparklinesLine color={c} />
+      </Sparklines>
+      </Box>
+    </>
+  )
+}
+
+// 価格表示 With SparkLine
+export const SparklineCRRatio = (props:{value?:any,num:number})=>{
+  var c = '#FFFFFF'
+  if(isUndefined(props.value)){
+    return (
+      <div>now loading...</div>
+    )
+  }
+
+  var trendData = props.value
+  var lastValue = Number(trendData.slice(-1))
+  var avgValue = _.mean(trendData.map(Number))
+  if (lastValue < avgValue){c = '#FF0000'}
+  if (lastValue > avgValue){c = '#00FF00'}
+  return(
+    <>
+      <Box width={55} height={55} style={{alignSelf:'normal',paddingTop:5}}>
+        <Sparklines data={trendData} min={0} max={props.num} svgWidth={55} svgHeight={55}  >
           <SparklinesLine color={c} />
       </Sparklines>
       </Box>
