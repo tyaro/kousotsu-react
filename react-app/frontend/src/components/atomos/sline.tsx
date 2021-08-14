@@ -193,7 +193,33 @@ export const SparklinePriceVol = (props:{value?:any,symbol?:string,span:string})
     </>
   )
 }
+// 価格表示 With SparkLine
+export const SparklinePriceInfo = (props:{symbol?:string,span:string})=>{
+  var c = '#FFFFFF'
+  const {data : info} = useSWR(
+    'https://kousotsu-py.info/cryptoinfo/API/TrendPrice/'+props.symbol
+    ,{refreshInterval:30000}
+  )
+  if(isUndefined(info)){
+    return (
+      <div>now loading...</div>
+    )
+  }
 
+  var trendData = info.Trend[props.span]
+  var lastPrice = Number(trendData.slice(-1))
+  var avgPrice = _.mean(trendData.map(Number))
+  if (lastPrice < avgPrice){c = '#FF0000'}
+  if (lastPrice > avgPrice){c = '#00FF00'}
+  return(
+    <>
+      <Typography style={{fontSize:'1.5em'}}>${lastPrice}</Typography>
+      <Sparklines data={trendData}>
+          <SparklinesLine color={c} />
+      </Sparklines>
+    </>
+  )
+}
 // 価格表示 With SparkLine
 export const SparklineCRRatio = (props:{value?:any,num:number})=>{
   var c = '#FFFFFF'

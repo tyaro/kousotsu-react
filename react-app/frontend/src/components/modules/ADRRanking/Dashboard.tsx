@@ -1,11 +1,15 @@
 import MaterialTable from '@material-table/core';
 import { linkBinanceFeature } from '../../atomos/link';
 import { Typography } from '@material-ui/core';
-import { isUndefined, mapValues } from 'lodash';
+import { isUndefined } from 'lodash';
 import { SparklinePriceVol} from '../../atomos/sline';
+import useSWR from 'swr';
 
-export const Dashboard = (props:{title?:string,data?:any}) => {
-
+export const Dashboard = () => {
+  const {data : info} = useSWR(
+    'https://kousotsu-py.info/cryptoinfo/API/ADRRank/ARR0'
+    ,{refreshInterval:30000}
+)
   const percentCol = (value:any) => {
     if(isUndefined(value)){
       return (
@@ -26,16 +30,16 @@ export const Dashboard = (props:{title?:string,data?:any}) => {
           <Typography style={{color:c}}>{value}</Typography>
       )
   }
-  if (isUndefined(props.data)){
+  if (isUndefined(info)){
     return(
       <>
       <Typography>now loading...</Typography>
       </>
     )
   }
-  var info = props.data.Result
   return (
     <>
+    <Typography style={{backgroundColor:'blue',paddingLeft:5}}>本日の最大ボラティリティ</Typography>
     <MaterialTable
     style={{
       maxWidth:360,
@@ -71,7 +75,7 @@ export const Dashboard = (props:{title?:string,data?:any}) => {
         customSort:(a,b)=>(a.DV - b.DV),
       },      
     ]}
-    data={info}
+    data={info.Result}
     options={{
       toolbar:true,
       sorting:true,

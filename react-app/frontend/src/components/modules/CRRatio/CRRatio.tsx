@@ -6,14 +6,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 const Dashboard = () => {
     return (
         <>
-        <Card style={{display:'inline-block',backgroundColor:'black',padding:5}}>
             <Typography style={{fontSize:'1.5em',whiteSpace:'nowrap'}}>
                 <span style={{color:'#5CC686',whiteSpace:'nowrap'}}>UP</span>/
                 <span style={{color:'#E35561'}}>Down</span>
                  先物銘柄比率(BTCDOMUSDTは除外)
             </Typography>
             <PV />
-            <Tabs style={{padding:0}} defaultIndex={5}>
+            <Tabs style={{fontSize:'0.5em',padding:0}} defaultIndex={5}>
             <TabPanel><AVG MA={'SMA5'} /></TabPanel>
             <TabPanel><AVG MA={'SMA15'} /></TabPanel>
             <TabPanel><AVG MA={'SMA30'} /></TabPanel>
@@ -33,7 +32,6 @@ const Dashboard = () => {
             <Tab>EMA(60)</Tab>
             </TabList>
             </Tabs>
-        </Card>
         </>
     )
 }

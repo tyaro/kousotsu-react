@@ -1,40 +1,33 @@
-import useSWR from 'swr';
-import { Card,Box, Typography } from '@material-ui/core';
-import { SlineTrend } from '../atomos/sline';
-import { isUndefined } from 'lodash';
+import {  Typography } from '@material-ui/core';
+import {  SparklinePriceInfo } from '../atomos/sline';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const Dashboard = (props:{symbol?:string}) => {
-  var url =  'https://kousotsu-py.info/cryptoinfo/API/TrendPrice/' + props.symbol
-  const {data : info} = useSWR(
-      url
-      ,{refreshInterval:30000}
-  )
-  if (isUndefined(info)){
-      return (
-          <div>now loading</div>
-      )
-  }
-  var pair = info.Pair
-  var trend = info.Trend
-  var price = info.Value
+  var pair = props.symbol
   return (
-    <>
-    <Card style={{display:'inline-block',width:240,marginRight:5,backgroundColor:'#111111'}}>
-        <Box style={{display:'flex',flex:1,flexDirection:'row',marginLeft:5,marginBottom:5}}>
-            <Box style={{flex:1}} maxWidth={100}>
-                <Typography>
-                    {pair}</Typography>
-            </Box>  
-            <Box style={{flex:2}} paddingLeft={5} maxWidth={100} height={30}>
-                <Typography style={{fontSize:'1.5em'}}>${price}</Typography>
-            </Box>
-        </Box>
-        <Box style={{marginLeft:5}}>
-        <SlineTrend value={trend} />
-        </Box>
-    </Card>
+      <>
+        <Typography>{pair}</Typography>
+        <Tabs style={{fontSize:'0.5em'}} defaultIndex={5}>
+        <TabPanel><SparklinePriceInfo symbol={pair} span={'1M'} /></TabPanel>
+        <TabPanel><SparklinePriceInfo symbol={pair} span={'15M'} /></TabPanel>
+        <TabPanel><SparklinePriceInfo symbol={pair} span={'1H'} /></TabPanel>
+        <TabPanel><SparklinePriceInfo symbol={pair} span={'4H'} /></TabPanel>
+        <TabPanel><SparklinePriceInfo symbol={pair} span={'6H'} /></TabPanel>
+        <TabPanel><SparklinePriceInfo symbol={pair} span={'1D'} /></TabPanel>
+        <TabList style={{padding:0}}>
+        <Tab style={{padding:2}}>1M</Tab>
+        <Tab style={{padding:2}}>15M</Tab>
+        <Tab style={{padding:2}}>1H</Tab>
+        <Tab style={{padding:2}}>4H</Tab>
+        <Tab style={{padding:2}}>6H</Tab>
+        <Tab style={{padding:2}}>1D</Tab>
+        </TabList>
+        </Tabs>
     </>
   )
 }
-
+/*
+    <Card style={{padding:5,backgroundColor:'#111111'}}>
+    </Card>
+*/
 export default Dashboard;

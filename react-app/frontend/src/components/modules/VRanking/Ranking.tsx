@@ -1,15 +1,21 @@
 import { Card } from '@material-ui/core';
 import { Accordion,AccordionDetails,AccordionSummary,Typography } from '@material-ui/core';
-import useSWR from 'swr';
-import Ranking from './Dashboard';
-import Ranking2 from './List';
+import Ranking from './List';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const Dashboard = () => {
   return (
     <>
     <Card style={{padding:5,backgroundColor:'#111111'}}>
-
+        <Typography style={{padding:5,fontSize:'1.5em'}}>出来高ランキング</Typography>
+        <tr>
+        <td>
+        <Card style={{backgroundColor:"black",padding:5}}>
+        <Typography style={{backgroundColor:'blue',paddingLeft:5}}>本日の最大ボラティリティ(%)</Typography>
+        <Ranking />
+        </Card>
+        </td>
+        </tr>
         <Accordion square={false} >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

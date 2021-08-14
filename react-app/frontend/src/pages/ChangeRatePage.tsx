@@ -3,10 +3,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import GenericTemplate from '../templates/GenericTemplate';
 import useSWR  from 'swr';
 import _, { isNull, isUndefined, values } from 'lodash';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box'
+import {Box,Card,Slider,Typography} from '@material-ui/core'
 import toast, { Toaster } from 'react-hot-toast'
-import Slider from '@material-ui/core/Slider';
 import CRList from '../components/block/CRList';
 import TrendInfo from '../components/modules/TrendInfo';
 
@@ -88,9 +86,12 @@ const CRDashBoard = () => {
   return(
     <>
       <Toaster/>
-      <TrendInfo symbol={'BTCUSDT'}/>
-      <TrendInfo symbol={'ETHUSDT'}/>
-      <br/>
+      <td>
+      <Card style={{width:200,padding:5,backgroundColor:'#111111'}}><TrendInfo symbol={'BTCUSDT'}/></Card>
+      </td>
+      <td>　</td>
+      <td><Card style={{width:200,padding:5,backgroundColor:'#111111'}}><TrendInfo symbol={'ETHUSDT'}/></Card>
+      </td><br/>
       <CRList data={info}/>
     <br/>
     <Box style={{width:300}}>

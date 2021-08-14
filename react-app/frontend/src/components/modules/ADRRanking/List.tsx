@@ -15,7 +15,7 @@ const Dashboard = () => {
         <TabPanel><Ranking span={'ARRE5'} /></TabPanel>
         <TabPanel><Ranking span={'ARRE10'} /></TabPanel>
         <TabPanel><Ranking span={'ARRE20'} /></TabPanel>
-        <TabList>
+        <TabList style={{fontSize:'0.5em'}}> 
         <Tab>ADR(5)</Tab>
         <Tab>ADR(10)</Tab>
         <Tab>ADR(20)</Tab>

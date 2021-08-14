@@ -20,7 +20,7 @@ const Dashboard = () => {
         <TabPanel><Ranking span={'8H'} /></TabPanel>
         <TabPanel><Ranking span={'12H'} /></TabPanel>
         <TabPanel><Ranking span={'24H'} /></TabPanel>
-        <TabList>
+        <TabList style={{fontSize:'0.5em'}}>
         <Tab>1min</Tab>
         <Tab>5min</Tab>
         <Tab>10min</Tab>

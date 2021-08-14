@@ -8,23 +8,27 @@ import { Timelapse } from '@material-ui/icons';
 const Dashboard = (props:{span?:string}) => {
     const {data : PV} = useSWR(
         'https://kousotsu-py.info/cryptoinfo/API/CRMTREND/PV/'+ props.span
-        ,{refreshInterval:30000}
+        ,{refreshInterval:300000}
     )
     const {data : EMA5} = useSWR(
         'https://kousotsu-py.info/cryptoinfo/API/CRMTREND/EMA05/'+ props.span
-        ,{refreshInterval:30000}
+        ,{refreshInterval:300000}
     )
     const {data : EMA15} = useSWR(
         'https://kousotsu-py.info/cryptoinfo/API/CRMTREND/EMA15/'+ props.span
-        ,{refreshInterval:30000}
+        ,{refreshInterval:300000}
     )
     const {data : EMA30} = useSWR(
         'https://kousotsu-py.info/cryptoinfo/API/CRMTREND/EMA30/'+ props.span
-        ,{refreshInterval:30000}
+        ,{refreshInterval:300000}
     )
     const {data : EMA60} = useSWR(
         'https://kousotsu-py.info/cryptoinfo/API/CRMTREND/EMA60/'+ props.span
-        ,{refreshInterval:30000}
+        ,{refreshInterval:300000}
+    )
+    const {data : BTCInfo} = useSWR(
+        'https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&limit='+'960'+'&interval=1m'
+        ,{refreshInterval:600000}
     )
     if (isUndefined(PV)||isUndefined(EMA5)||isUndefined(EMA15)||isUndefined(EMA30)||isUndefined(EMA60)){
         return (
@@ -34,15 +38,22 @@ const Dashboard = (props:{span?:string}) => {
     var span = PV.length
     var timeLabel:string[] = new Array(span)
     var pvData:number[] = new Array(span)
+    console.log(BTCInfo)
+
+    var j=0
+    _.forEach(BTCInfo,row=>{
+        pvData[j] = row[4];
+        j++;
+    })
 
     var startTime = new Date()
-    var unixTime = Number(startTime) - 480 * 60000
-    for(var i=0;i<480;i++){
+    var unixTime = Number(startTime) - span * 60000
+    for(var i=0;i<span;i++){
         var timeline = new Date(unixTime + i * 60000)
         timeLabel[i] = timeline.getHours().toLocaleString() + ":" + timeline.getMinutes().toLocaleString()
 //        pvData[i] = Number(PV[i])
     }
-    console.log(timeLabel)
+    console.log(pvData)
     var data = {
         labels:timeLabel,
         datasets:[
@@ -52,6 +63,7 @@ const Dashboard = (props:{span?:string}) => {
                 backgroundColor: ['rgba(0, 255, 255, 0.2)',],
                 borderColor: ['rgba(0, 255, 255, 1)',],
                 borderWidth: 1,
+                yAxisID:'y',
             },
             {
                 label:'EMA(5)',
@@ -60,6 +72,7 @@ const Dashboard = (props:{span?:string}) => {
                 borderColor: ['rgba(255, 0, 255, 1)',],
                 borderWidth: 1,
                 hidden:true,
+                yAxisID:'y',
             },
             {
                 label:'EMA(15)',
@@ -68,6 +81,7 @@ const Dashboard = (props:{span?:string}) => {
                 borderColor: ['rgba(0, 255, 0, 1)',],
                 borderWidth: 1,
                 hidden:true,
+                yAxisID:'y',
             },
             {
                 label:'EMA(30)',
@@ -76,6 +90,7 @@ const Dashboard = (props:{span?:string}) => {
                 borderColor: ['rgba(255, 129, 0, 1)',],
                 borderWidth: 1,
                 hidden:true,
+                yAxisID:'y',
             },
             {
                 label:'EMA(60)',
@@ -83,6 +98,15 @@ const Dashboard = (props:{span?:string}) => {
                 backgroundColor: ['rgba(0, 129, 255, 0.2)',],
                 borderColor: ['rgba(0, 129, 255, 1)',],
                 borderWidth: 1,
+                yAxisID:'y',
+            },
+            {
+                label:'BTCUSDT',
+                data:pvData,
+                backgroundColor: ['rgba(129, 129, 255, 0.2)',],
+                borderColor: ['rgba(129, 129, 255, 1)',],
+                borderWidth: 1,
+                yAxisID:'y1',
             },
 
 
@@ -101,24 +125,26 @@ const Dashboard = (props:{span?:string}) => {
                     labelString: '時間'
                 },
             }],
-            y: {    
-                grid:{
-                    drawBorder:true,
-                    color: "#5f5f5f",
-                },
-                ticks: {
-                    beginAtZero: false,
-                    color:"#FFFFFF",
-                }
+            y:{
+                    grid:{
+                        drawBorder:true,
+                        color: "#5f5f5f",
+                    },
+                    ticks: {
+                        beginAtZero: false,
+                        color:"#FFFFFF",
+                    }
             },
-        
+            y1:{
+                type:'linear',
+                display:true,
+                position:'right',
+            },
         }
     }
     return (      
         <>
-        <Card style={{backgroundColor:'black'}}>
-            <Line data={data} options={options} />
-        </Card>
+        <Line data={data} options={options} />
         </>
     )
 }
