@@ -38,7 +38,6 @@ const Dashboard = (props:{span?:string}) => {
     var span = PV.length
     var timeLabel:string[] = new Array(span)
     var pvData:number[] = new Array(span)
-    console.log(BTCInfo)
 
     var j=0
     _.forEach(BTCInfo,row=>{
@@ -53,7 +52,6 @@ const Dashboard = (props:{span?:string}) => {
         timeLabel[i] = timeline.getHours().toLocaleString() + ":" + timeline.getMinutes().toLocaleString()
 //        pvData[i] = Number(PV[i])
     }
-    console.log(pvData)
     var data = {
         labels:timeLabel,
         datasets:[

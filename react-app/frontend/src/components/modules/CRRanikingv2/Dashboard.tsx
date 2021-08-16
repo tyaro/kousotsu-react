@@ -2,33 +2,45 @@ import MaterialTable from '@material-table/core';
 import { linkBinanceFeature } from '../../atomos/link';
 import { Typography } from '@material-ui/core';
 import { isUndefined } from 'lodash';
-import { SparklinePriceVol,SparklineVolumeInfo2,SparklineCRInfo,SparklineVolumeRatio,SparklineVolumeTrend2 } from '../../atomos/sline';
+import { SparklinePriceInfo2 } from '../../atomos/sline';
 import useSWR from 'swr';
-import Ratio from './PieChart';
 
 
-export const Dashboard = (props:{span:string}) => {
+export const Dashboard = (props:{span:string,sort:any}) => {
   const {data : rankData} = useSWR(
-      'https://kousotsu-py.info/cryptoinfo/API/VOLUME/RANK/PV/' + props.span
+      'https://kousotsu-py.info/cryptoinfo/API/CRRank/' + props.span
       ,{refreshInterval:30000}
   )
+  var info = []
+  //console.log(rankData)
+  if( !isUndefined(rankData)){ 
+    info = rankData.Result
+  }
+  var trendSpan = '1M'
+  var trendSpan2 = '15MIN'
+  if(props.span==="15M"||props.span==="30M"){
+    trendSpan = '15M'
+  }else if(props.span==="60M"){
+    trendSpan = '1H'
+    trendSpan2 = '1HOUR'
+  }else if(props.span==="240M"){
+    trendSpan = '4H'
+    trendSpan2 = '4HOUR'
+  }else if(props.span==="360M"||props.span==="480M"||props.span==="720M"){
+    trendSpan = '6H'
+    trendSpan2 = '6HOUR'
+  }else if(props.span==="1440M"){
+    trendSpan = '1D'
+    trendSpan2 = '1DAY'
+  }
 
-  if( isUndefined(rankData)){
-    return(
-      <div>now loading..</div>
-    )
-  }
-  var span2 = '15M'
-  if (props.span==='1HOUR'){
-    span2 = '60M'
-  }else if(props.span==='1DAY'){
-    span2 = '1440M'
-  }
-  const volumeCol = (value:any) =>{
-    var vol = (Number(value)/1000).toFixed(1)
-    return (
-      <Typography style={{textAlign:'center'}}>{vol}K</Typography>
-    )
+  const percentCol = (value:any) => {
+    var c = '#FFFFFF'
+    if (value < 0){c = '#E35561'}
+    if (value > 0){c = '#5CC686'}
+      return (
+          <Typography style={{color:c}}>{value}%</Typography>
+      )
   }
 
   const dvCol = (value:any) => {
@@ -44,7 +56,7 @@ export const Dashboard = (props:{span:string}) => {
     <MaterialTable
     style={{
       backgroundColor:'#111111',
-      width:800,
+      //width:360,
     }}
     columns={[
       { 
@@ -53,73 +65,74 @@ export const Dashboard = (props:{span:string}) => {
         render: row => <Typography style={{fontSize:'1.5em'}}>{row.Rank}</Typography>,
         customSort:(a,b)=>(a.Rank - b.Rank),
         width:50,
+        cellStyle:{
+          minWidth:50,
+          maxWidth:60,
+        },
+        defaultSort:props.sort
       },
       { 
         title: 'Symbol',
         field: 'Pair',
         render: row => linkBinanceFeature(row.Pair.replace('USDT','')),
         type:'string',
-        width:80,
+        width:60,
+        cellStyle:{
+          minWidth:50,
+          maxWidth:60,
+        },
+      },
+      { 
+        title: 'Price',
+        field: 'Price',
+        render: row => SparklinePriceInfo2({symbol:row.Pair ,span:trendSpan, changeRate:row.Value}),
+        type:'string',
+        sorting:false,
+        //width:120,
       },
       {
-        title: <div style={{textAlign:'center'}}>出来高<br/>(USDT)</div>,
+        title: <div style={{textAlign:'center'}}>変動率<br/>(%)</div>,
         field: 'Value',
-        render: row => SparklineVolumeTrend2({symbol:row.Pair,span:props.span}),
+        render: row => percentCol(row.Value),
         customSort:(a,b)=>(a.Value - b.Value),
-        width:100,
+        //width:80,
       },
+      /*
       {
-        title: <div>全体<br/>偏差値</div>,
-        field: 'VOLDV',
-        render: row => dvCol(row.VOLDV),
-        customSort:(a,b)=>(a.VOLDV - b.VOLDV),
-        width:60,
-      },      
-      {
-        title: <div>銘柄<br/>偏差値</div>,
-        field: 'PDV',
-        render: row => dvCol(row.PDV),
-        customSort:(a,b)=>(a.PDV - b.PDV),
-        width:60,
-      },
+        title: <div style={{textAlign:'center'}}>出来高</div>,
+        field: 'Volume',
+        render: row => SparklineVolumeInfo2({symbol:row.Pair,span:trendSpan2}),
+        sorting:false,
+        //width:80,
+      },  
       {
         title: <div style={{textAlign:'center'}}>売買<br/>比率</div>,
-        field: 'RATIO',
-        render: row => Ratio({symbol:row.Pair,span:props.span}),
-        customSort:(a,b)=>(a.RATIO - b.RATIO),
-        sorting:true,
-        width:55,
-      },
-      {
-        title: <div style={{textAlign:'center'}}>売買比率<br/>トレンド</div>,
-        field: 'RATIO',
-        render: row => SparklineVolumeRatio({symbol:row.Pair,span:props.span}),
-        customSort:(a,b)=>(a.RATIO - b.RATIO),
-        sorting:true,
-        width:100,
-      },
-      {
-        title: <div style={{textAlign:'center'}}>変動率(%)</div>,
-        field: 'CRate',
-        render: row => SparklineCRInfo({symbol:row.Pair,span:span2}),
-        customSort:(a,b)=>(a.Value - b.Value),
+        field: 'Volume',
+        render: row => Ratio({symbol:row.Pair,span:trendSpan2}),
         sorting:false,
-        width:100,
-      },        
+        //width:80,
+      },
+      */  
+      {
+        title: <div>全体<br/>偏差値</div>,
+        field: 'DV',
+        render: row => dvCol(row.DV),
+        customSort:(a,b)=>(a.DV - b.DV),
+        //width:60,
+      },      
     ]}
-    data={rankData.Result}
+    data={info}
     options={{
       toolbar:true,
       sorting:true,
       search:true,
       showTitle: false,
       paging:true,
-      tableLayout:'fixed',
+      tableLayout:'auto',
       rowStyle:{
-        marginTop:1,
-        marginBottom:1,
-        paddingTop:1,
-        paddingBottom:1,
+        //marginTop:1,
+        //marginBottom:1,
+        padding:1,
       },
       header:true,
       headerStyle:{

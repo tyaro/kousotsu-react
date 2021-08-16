@@ -201,7 +201,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               noWrap
               className={classes.title}
             >
-              Crypto Info
+              Crypto Info (アンチ情報商材屋)
             </Typography>
           </Toolbar>
         </AppBar>

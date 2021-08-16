@@ -1,7 +1,7 @@
 // 値と一緒に Sparkline を表示する
 import { Card,Box, Typography } from '@material-ui/core';
 import { isUndefined, sumBy } from 'lodash';
-import { Sparklines, SparklinesLine,SparklinesBars,SparklinesBarsProps } from 'react-sparklines';
+import { Sparklines, SparklinesLine,SparklinesBars,SparklinesText,SparklinesReferenceLine } from 'react-sparklines';
 import useSWR from 'swr';
 import _ from 'lodash';
 
@@ -221,6 +221,35 @@ export const SparklinePriceInfo = (props:{symbol?:string,span:string})=>{
   )
 }
 // 価格表示 With SparkLine
+export const SparklinePriceInfo2 = (props:{symbol?:string,span:string,changeRate?:string})=>{
+  const {data : info} = useSWR(
+    'https://kousotsu-py.info/cryptoinfo/API/TrendPrice/'+props.symbol
+    ,{refreshInterval:30000}
+  )
+  if(isUndefined(info)||isUndefined(props.changeRate)){
+    return (
+      <div>now loading...</div>
+    )
+  }
+
+  var trendData = info.Trend[props.span]
+  var lastPrice = Number(trendData.slice(-1))
+  var c = '#FFFFFF'
+  var value = Number(props.changeRate)
+  if (value < 0){c = '#E35561'}
+  if (value > 0){c = '#5CC686'}
+  return(
+    <>
+      <Box width={95} height={35} style={{marginTop:0}}>
+      <Typography style={{fontSize:'1.2em',color:c}}>${lastPrice}</Typography>
+      <Sparklines data={trendData}>
+          <SparklinesLine color={c} />
+      </Sparklines>
+      </Box>
+    </>
+  )
+}
+// 価格表示 With SparkLine
 export const SparklineCRRatio = (props:{value?:any,num:number})=>{
   var c = '#FFFFFF'
   if(isUndefined(props.value)){
@@ -241,6 +270,105 @@ export const SparklineCRRatio = (props:{value?:any,num:number})=>{
           <SparklinesLine color={c} />
       </Sparklines>
       </Box>
+    </>
+  )
+}
+
+// 出来高表示 With SparkLine
+export const SparklineVolumeInfo2 = (props:{symbol?:string,span:string})=>{
+  const {data : info} = useSWR(
+    'https://kousotsu-py.info/cryptoinfo/API/VOLUME/TREND/'+props.symbol +'/' + props.span
+    ,{refreshInterval:30000}
+  )
+  if(isUndefined(info)||isUndefined(props.symbol)){
+    return (
+      <div>now loading...</div>
+    )
+  }
+  var trendData = info.map(Number)
+  var lastValue = trendData.slice(-1)
+  var value = lastValue
+  if (String(lastValue).length>7){
+    value = String((Number(lastValue)/1000000).toFixed(1)) + 'M'
+  }else if(String(lastValue).length > 4){
+    value = String((Number(lastValue)/1000).toFixed(1)) + 'K'
+  }
+  var c = '#FFFFFF'
+  return(
+    <>
+      <Box width={95} height={35} style={{marginTop:0}}>
+      <Typography style={{fontSize:'1.2em',color:c}}>${value}</Typography>
+      <Sparklines data={trendData}>
+        <SparklinesLine color={'white'}/>
+      </Sparklines>
+      </Box>
+    </>
+  )
+}
+
+import { fetchCRVRankValue, fetchPriceTrend, fetchVolumeRatioTrend } from './FetchAPIData';
+
+// 変動率表示＋価格トレンド With SparkLine
+export const SparklineCRInfo = (props:{symbol?:string,span:string})=>{
+  const info = fetchPriceTrend({symbol:props.symbol,span:props.span})
+  const info2 = fetchCRVRankValue({symbol:props.symbol,span:props.span})
+  var c = '#FFFFFF'
+  var trendData = info
+  var value = Number(info2.Value)
+  var rank = info2.Rank
+  var dv = info2.DV
+  if (value < 0){c = '#E35561'}
+  if (value > 0){c = '#5CC686'}
+  return(
+    <>
+      <Typography style={{fontSize:'1.2em',color:c}}>{value}%</Typography>
+      <Sparklines data={trendData}>
+          <SparklinesLine color={c} />
+      </Sparklines>
+    </>
+  )
+}
+
+
+export const SparklineVolumeRatio = (props:{symbol?:string,span:string}) => {
+  const info = fetchVolumeRatioTrend({symbol:props.symbol,span:props.span})
+  var lastValue = Number(info.slice(-1)).toFixed(1)
+  var trendData = info.slice(-20)
+  var c = '#FFFFFF'
+  if (Number(lastValue) < 50){c = '#E35561'}
+  if (Number(lastValue) > 50){c = '#5CC686'}
+  return(
+    <>
+    <Typography key='value' style={{color:c,marginBottom:-10,textAlign:'center'}} >{lastValue}%</Typography>
+      <Sparklines key='value' data={trendData} min={0} max={100} style={{padding:0}}  svgHeight={40} svgWidth={100} >
+          <SparklinesLine color='#5CC686' style={{fillOpacity:0.2}} />
+          <SparklinesReferenceLine type="custom" value={30} style={{stroke:'red',strokeOpacity:0.75,strokeWidth:2}} />
+      </Sparklines>
+    </>
+  )
+}
+
+import { fetchVolumeTrend } from './FetchAPIData';
+import { propTypes } from 'react-notification-system';
+
+// 出来高表示 With SparkLine
+export const SparklineVolumeTrend2 = (props:{symbol?:string,span:string})=>{
+  const info = fetchVolumeTrend({symbol:props.symbol,span:props.span})
+  var lastValue = Number(info.slice(-1)).toFixed(1)
+  var trendData = info.slice(-20)
+  var value = lastValue
+  if (String(lastValue).length>7){
+    value = String((Number(lastValue)/1000000).toFixed(1)) + 'M'
+  }else if(String(lastValue).length > 4){
+    value = String((Number(lastValue)/1000).toFixed(1)) + 'K'
+  }
+  var c = '#FFFFFF'
+  return(
+    <>
+      <Typography style={{fontSize:'1.2em',color:c}}>${value}</Typography>
+      <Sparklines data={trendData}  svgHeight={30} svgWidth={100} >
+        <SparklinesBars />
+      </Sparklines>
     </>
   )
 }

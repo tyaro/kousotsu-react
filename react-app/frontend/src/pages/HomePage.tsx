@@ -1,6 +1,6 @@
 import React from "react";
 import GenericTemplate from "../templates/GenericTemplate";
-import CRRank from '../components/modules/CRRanking/Ranking';
+import CRRank from '../components/modules/CRRanikingv2/List';
 import TrendInfo from '../components/modules/TrendInfo';
 import CRMedian from '../components/modules/CRRatio/CRRatio';
 import CRInfo from '../components/atomos/CRInfoBTCALT';
@@ -18,11 +18,12 @@ const HomePage: React.FC = () => {
     { i: 'info3', x: 10, y: 0, w: 5, h: 6 },
     { i: 'CRMedian', x: 0, y: 5, w: 20, h: 15 },
     { i: 'CRInfo', x: 0, y: 21, w: 20, h: 7 },
-    { i: 'VRank', x: 21, y: 27, w: 11, h: 28},
+    { i: 'VRank', x: 0, y: 59, w: 23, h: 35},
     { i: 'TDRRank', x: 20, y: 0, w: 10, h: 28},
     { i: 'ADRRank', x: 30, y: 0, w: 14, h: 28},
-    { i: 'CRRank', x: 0, y: 27, w: 21, h: 42},
-    { i: 'CRMTrend', x: 32, y: 27, w: 15, h: 18},
+    { i: 'CRRank', x: 0, y: 27, w: 14, h: 32},
+    { i: 'CRRank2', x: 14, y: 27, w: 14, h: 32},
+    { i: 'CRMTrend', x: 37, y: 59, w: 15, h: 18},
   ];
   return (
     <GenericTemplate title={""}>
@@ -54,7 +55,10 @@ const HomePage: React.FC = () => {
     <VRank />
     </Card>
     <Card key='CRRank' style={{backgroundColor:'#111111',padding:5}}>
-      <CRRank />
+      <CRRank sort="asc"/>
+    </Card>
+    <Card key='CRRank2' style={{backgroundColor:'#111111',padding:5}}>
+      <CRRank sort="desc"/>
     </Card>
     <Card key='TDRRank' style={{backgroundColor:'#111111',padding:5}}>
       <TDRRank />
