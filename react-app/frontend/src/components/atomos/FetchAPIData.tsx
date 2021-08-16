@@ -3,7 +3,7 @@ import useSWR from 'swr';
 
 
 const parseSpanType1 = (span:string):string => {
-    var result = '15M'
+    var result = span
 
     if(span==='1MIN'||span==='1min'){
         result = '1M'
@@ -25,7 +25,7 @@ const parseSpanType1 = (span:string):string => {
     return result
 } 
 const parseSpanType2 = (span:string):string => {
-  var result = '15MIN'
+  var result = span
 
   if(span==='1M'||span==='1min'){
       result = '1MIN'
@@ -55,6 +55,7 @@ export const fetchVolumeRatioTrend = (props:{symbol?:string,span:string}):any=>{
     url
     ,{refreshInterval:30000}
   )
+  console.log(url)
  var trendData = new Array(30).fill(0)
   if (!isUndefined(info)){
     trendData = info

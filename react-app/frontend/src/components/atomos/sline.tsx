@@ -349,7 +349,6 @@ export const SparklineVolumeRatio = (props:{symbol?:string,span:string}) => {
 }
 
 import { fetchVolumeTrend } from './FetchAPIData';
-import { propTypes } from 'react-notification-system';
 
 // 出来高表示 With SparkLine
 export const SparklineVolumeTrend2 = (props:{symbol?:string,span:string})=>{
