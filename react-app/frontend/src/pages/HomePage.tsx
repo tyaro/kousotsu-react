@@ -7,26 +7,33 @@ import CRInfo from '../components/atomos/CRInfoBTCALT';
 import CRMTrend from '../components/modules/CRMEvaluation/Dashboard';
 import TDRRank from '../components/modules/ADRRanking/Dashboard';
 import ADRRank from '../components/modules/ADRRanking/List';
-import { Card,Typography } from "@material-ui/core";
+import { Button, Card,Typography } from "@material-ui/core";
 import VRank from '../components/modules/VRanking/List';
+import { useState } from "react";
 const ReactGridLayout = require('react-grid-layout');
 
 const HomePage: React.FC = () => {
+  const [ fixflag,setFixflag] = useState(false)
+  const onClick =() =>{
+    if(fixflag==false){setFixflag(true)}
+    else{setFixflag(false)}
+  }
   const layout = [
-    { i: 'info1', x: 0, y: 0, w: 5, h: 6, },
-    { i: 'info2', x: 5, y: 0, w: 5, h: 6, },
-    { i: 'info3', x: 10, y: 0, w: 5, h: 6 },
-    { i: 'CRMedian', x: 0, y: 5, w: 20, h: 15 },
-    { i: 'CRInfo', x: 0, y: 21, w: 20, h: 7 },
-    { i: 'VRank', x: 0, y: 59, w: 23, h: 35},
-    { i: 'TDRRank', x: 20, y: 0, w: 10, h: 28},
-    { i: 'ADRRank', x: 30, y: 0, w: 14, h: 28},
-    { i: 'CRRank', x: 0, y: 27, w: 14, h: 32},
-    { i: 'CRRank2', x: 14, y: 27, w: 14, h: 32},
-    { i: 'CRMTrend', x: 37, y: 59, w: 15, h: 18},
+    { i: 'info1', x: 0, y: 0, w: 5, h: 6, static:fixflag,},
+    { i: 'info2', x: 5, y: 0, w: 5, h: 6,  static:fixflag,},
+    { i: 'info3', x: 10, y: 0, w: 5, h: 6, static:fixflag, },
+    { i: 'CRMedian', x: 0, y: 6, w: 20, h: 15, static:fixflag, },
+    { i: 'CRInfo', x: 0, y: 21, w: 20, h: 7, static:fixflag, },
+    { i: 'VRank', x: 0, y: 59, w: 23, h: 35, static:fixflag,},
+    { i: 'TDRRank', x: 20, y: 0, w: 10, h: 28, static:fixflag,},
+    { i: 'ADRRank', x: 30, y: 0, w: 14, h: 28, static:fixflag,},
+    { i: 'CRRank', x: 0, y: 28, w: 14, h: 32, static:fixflag,},
+    { i: 'CRRank2', x: 14, y: 28, w: 14, h: 32, static:fixflag,},
+    { i: 'CRMTrend', x: 28, y: 28, w: 15, h: 18, static:fixflag,},
   ];
   return (
     <GenericTemplate title={""}>
+      <Button onClick={() => {onClick()}}>Fix</Button>
     <ReactGridLayout
       className="layout"
       layout={layout}
