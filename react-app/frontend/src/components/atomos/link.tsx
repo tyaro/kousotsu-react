@@ -21,3 +21,15 @@ export const linkBinanceFeature2 = (props:{symbol?:string}) =>{
     </>
   )
 }
+// バイナンス先物取引へのリンク
+export const LinkBinanceFeature3 = (props:{symbol?:string}) =>{
+  var url = 'https://www.binance.com/ja/futures/' + props.symbol
+  const pair = String(props.symbol).replace('USDT','')
+  return (
+    <>
+    <Typography>
+    <a target='_blank' href={url} style={{color:"#FFFFFF"}}>{pair}</a>
+    </Typography>
+    </>
+  )
+}

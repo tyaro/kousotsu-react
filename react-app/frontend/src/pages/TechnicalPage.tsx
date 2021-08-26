@@ -4,7 +4,7 @@ import GenericTemplate from '../templates/GenericTemplate';
 import { Box, Typography } from '@material-ui/core';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import RSIDashboard from "../components/modules/RSI";
+import RSIDashboard from "../components/modules/RSI/Page";
 import BBBDashboard from "../components/modules/BBB";
 import BBWRDashboard from "../components/modules/BBWR";
 import ADRDashboard from "../components/modules/ADR";
