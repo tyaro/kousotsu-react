@@ -6,15 +6,15 @@ const Dashboard = (props:{symbol?:string}) => {
   var pair = props.symbol
   return (
       <>
-        <Typography>{pair}</Typography>
-        <Tabs style={{fontSize:'0.5em'}} defaultIndex={5}>
+        <Typography style={{fontSize:'1em'}}>{pair}</Typography>
+        <Tabs defaultIndex={5}>
         <TabPanel><SparklinePriceInfo symbol={pair} span={'1M'} /></TabPanel>
         <TabPanel><SparklinePriceInfo symbol={pair} span={'15M'} /></TabPanel>
         <TabPanel><SparklinePriceInfo symbol={pair} span={'1H'} /></TabPanel>
         <TabPanel><SparklinePriceInfo symbol={pair} span={'4H'} /></TabPanel>
         <TabPanel><SparklinePriceInfo symbol={pair} span={'6H'} /></TabPanel>
         <TabPanel><SparklinePriceInfo symbol={pair} span={'1D'} /></TabPanel>
-        <TabList style={{padding:0}}>
+        <TabList style={{padding:0,fontSize:'0.5em'}}>
         <Tab style={{padding:2}}>1M</Tab>
         <Tab style={{padding:2}}>15M</Tab>
         <Tab style={{padding:2}}>1H</Tab>

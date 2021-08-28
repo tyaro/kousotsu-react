@@ -112,14 +112,16 @@ export const Dashboard = (props:{span:string,sort:any}) => {
         sorting:false,
         //width:80,
       },
-      */  
+      */
+     /*  
       {
         title: <div>全体<br/>偏差値</div>,
         field: 'DV',
         render: row => dvCol(row.DV),
         customSort:(a,b)=>(a.DV - b.DV),
         //width:60,
-      },      
+      },
+      */      
     ]}
     data={info}
     options={{
@@ -127,7 +129,8 @@ export const Dashboard = (props:{span:string,sort:any}) => {
       sorting:true,
       search:true,
       showTitle: false,
-      paging:true,
+      paging:false,
+      maxBodyHeight:740,
       tableLayout:'auto',
       rowStyle:{
         //marginTop:1,

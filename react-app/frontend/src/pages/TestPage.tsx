@@ -5,7 +5,7 @@ import GenericTemplate from '../templates/GenericTemplate';
 import Dashboard from '../components/modules/Dashboard/page'
 type Props = {} & RouteComponentProps<{}>;
 const ReactGridLayout = require('react-grid-layout');
-
+import Hoge from '../components/modules/Volume/PieChart'
 
 const TestPage: React.FC = () => {
   return (

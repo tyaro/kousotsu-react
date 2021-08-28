@@ -64,7 +64,7 @@ const parseSpanType3 = (span:string):string => {
       result = '8H'
     }else if(span==='720MIN'||span==='12HOUR'||span==='720min'||span==='12Hour'||span==='720M'){
       result = '12H'
-    }else if(span==='1440MIN'||span==='1DAY'||span==='1D'||span==='1440M'){
+    }else if(span==='1440MIN'||span==='1440M'||span==='1DAY'||span==='24H'){
       result = '1D'
     }
   return result
@@ -103,7 +103,7 @@ export const fetchVolumeTrend = (props:{symbol?:string,span:string}):any=>{
 
 export const fetchPriceTrend = (props:{symbol?:string,span:string}):any=>{
 
-  const span = parseSpanType1(props.span)
+  const span = parseSpanType3(props.span)
   const url = 'https://kousotsu-py.info/cryptoinfo/API/TrendPrice/'+props.symbol
   const {data : info} = useSWR(
     url
@@ -299,7 +299,6 @@ export const fetchRSIInfo = (props:{symbol:string,span:string}):any=>{
     url
     ,{refreshInterval:30000}
   )
-  console.log(url)
   var value = undefined
   if (!isUndefined(info)){
     value = info
@@ -333,7 +332,6 @@ export const fetchBBBInfo = (props:{symbol:string,span:string}):any=>{
     url
     ,{refreshInterval:30000}
   )
-  console.log(url)
   var value = undefined
   if (!isUndefined(info)){
     value = info
@@ -366,7 +364,6 @@ export const fetchBBWRInfo = (props:{symbol:string,span:string}):any=>{
     url
     ,{refreshInterval:30000}
   )
-  console.log(url)
   var value = undefined
   if (!isUndefined(info)){
     value = info
@@ -379,6 +376,55 @@ export const fetchBBWRInfo = (props:{symbol:string,span:string}):any=>{
 export const fetchBBWRTrendInfo = (props:{symbol:string,span:string}):any=>{
   const span = parseSpanType3(props.span)
   const url = 'https://kousotsu-py.info/cryptoinfo/API/V3/BBWR/TREND/' + props.symbol + '/' + span
+  const {data : info} = useSWR(
+    url
+    ,{refreshInterval:30000}
+  )
+  var value = undefined
+  if (!isUndefined(info)){
+    value = info
+  }
+  return (value);
+
+}
+
+
+// Volumeランキング情報(V3)
+export const fetchVolumeRankInfo = (props:{symbol:string,span:string}):any=>{
+  const span = parseSpanType3(props.span)
+  const url = 'https://kousotsu-py.info/cryptoinfo/API/V3/VOLUME/RANK/' + props.symbol + '/' + span
+  const {data : info} = useSWR(
+    url
+    ,{refreshInterval:30000}
+  )
+  var value = undefined
+  if (!isUndefined(info)){
+    value = info
+  }
+  return (value);
+
+}
+
+// Volume Ranking 情報
+export const fetchVolumeRanking = (props:{span:string}):any=>{
+  const span = parseSpanType3(props.span)
+  const url = 'https://kousotsu-py.info/cryptoinfo/API/V3/VOLUME/RANK/' + span
+  const {data : info} = useSWR(
+    url
+    ,{refreshInterval:30000}
+  )
+  var value = undefined
+  if (!isUndefined(info)){
+    value = info
+  }
+  return (value);
+
+}
+
+// Volume Ranking 情報
+export const fetchVolumeWholeInfo = (props:{span:string}):any=>{
+  const span = parseSpanType3(props.span)
+  const url = 'https://kousotsu-py.info/cryptoinfo/API/V3/VOLUME/INFO/' + span
   const {data : info} = useSWR(
     url
     ,{refreshInterval:30000}

@@ -1,10 +1,11 @@
-import { Typography } from '@material-ui/core';
+import { Typography,Card } from '@material-ui/core';
 import Ranking from './Dashboard';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const Dashboard = (props:{sort:any}) => {
   return (
     <>
+    <Card style={{backgroundColor:'black'}}>
         <Tabs style={{padding:0}} defaultIndex={3}>
         <Typography style={{backgroundColor:'blue',paddingLeft:5}}>変動率ランキング</Typography>
         <TabPanel><Ranking span={'1M'} sort={props.sort} /></TabPanel>
@@ -32,6 +33,7 @@ const Dashboard = (props:{sort:any}) => {
         <Tab>1day</Tab>
         </TabList>
         </Tabs>
+      </Card>
     </>
   )
 }

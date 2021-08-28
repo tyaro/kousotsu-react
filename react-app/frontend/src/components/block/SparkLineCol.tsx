@@ -30,12 +30,12 @@ export const SparklinePriceInfo2 = (props:{info?:any,span:string})=>{
   var avgPrice = _.mean(trendData.map(Number))
   if (lastPrice < avgPrice){c = '#FF0000'}
   if (lastPrice > avgPrice){c = '#00FF00'}
-  console.log(props.info)
+  //console.log(props.info)
   return(
     <>
     <Card style={{backgroundColor:"black",padding:5}}>
-    <Typography style={{fontSize:'3em'}}>{props.info.Pair}</Typography>
-    <Typography style={{fontSize:'10em'}}>${lastPrice}</Typography>
+    <Typography style={{fontSize:'0.5em'}}>{props.info.Pair}</Typography>
+    <Typography style={{fontSize:'2em'}}>${lastPrice}</Typography>
       <Sparklines data={trendData} style={{width:300,height:100}}>
           <SparklinesLine color={c} />
       </Sparklines>
@@ -90,14 +90,14 @@ export const PriceInfo2 = (props:{symbol?:string})=>{
 
   return(
     <>
-      <Tabs style={{fontSize:'0.2em'}} defaultIndex={state} onSelect={(index)=>setState(index)}>
+      <Tabs defaultIndex={state} onSelect={(index)=>setState(index)}>
       <TabPanel><SparklinePriceInfo2 info={info} span={'1M'} /></TabPanel>
       <TabPanel><SparklinePriceInfo2 info={info} span={'15M'} /></TabPanel>
       <TabPanel><SparklinePriceInfo2 info={info} span={'1H'} /></TabPanel>
       <TabPanel><SparklinePriceInfo2 info={info} span={'4H'} /></TabPanel>
       <TabPanel><SparklinePriceInfo2 info={info} span={'6H'} /></TabPanel>
       <TabPanel><SparklinePriceInfo2 info={info} span={'1D'} /></TabPanel>
-      <TabList style={{padding:0,lightingColor:'#222222'}}>
+      <TabList style={{padding:0,lightingColor:'#222222',fontSize:'0.2em'}}>
       <Tab style={{padding:2}}>1M</Tab>
       <Tab style={{padding:2}}>15M</Tab>
       <Tab style={{padding:2}}>1H</Tab>

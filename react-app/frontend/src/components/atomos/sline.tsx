@@ -372,3 +372,29 @@ export const SparklineVolumeTrend2 = (props:{symbol?:string,span:string})=>{
   )
 }
 
+import { fetchARRInfo  } from './FetchAPIData';
+
+// ADR With SparkLine
+export const SparklineADRInfo = (p:{symbol:string,method:string})=>{
+  const info = fetchARRInfo({symbol:p.symbol,method:p.method})
+  const trend = fetchPriceTrend({symbol:p.symbol,span:'1D'})
+  if(isUndefined(info)||isUndefined(trend)){
+    return (
+      <div>now loading...</div>
+    )
+  }
+  var value = info.Result.Value
+  var c = '#FFFFFF'
+  if (value < 0){c = '#E35561'}
+  if (value > 0){c = '#5CC686'}
+  return(
+    <>
+      <Box width={95} height={35} style={{marginTop:0}}>
+      <Typography style={{fontSize:'1.2em',color:c}}>{value}%</Typography>
+      <Sparklines data={trend}>
+          <SparklinesLine color={c} />
+      </Sparklines>
+      </Box>
+    </>
+  )
+}

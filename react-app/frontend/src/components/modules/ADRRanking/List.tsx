@@ -1,13 +1,12 @@
-import { Typography } from '@material-ui/core';
+import { Typography,Card } from '@material-ui/core';
 import Ranking from './Dashboard2';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const Dashboard = () => {
   return (
     <>
-      <tr>
-        <td>
-        <Tabs style={{padding:0}} defaultIndex={3}>
+        <Card style={{backgroundColor:'black'}}>
+        <Tabs  defaultIndex={3}>
         <Typography style={{backgroundColor:'blue',paddingLeft:5}}>ボラティリティ平均(%)</Typography>
         <TabPanel><Ranking span={'ARR5'} /></TabPanel>
         <TabPanel><Ranking span={'ARR10'} /></TabPanel>
@@ -24,8 +23,7 @@ const Dashboard = () => {
         <Tab>ADRE(20)</Tab>
         </TabList>
         </Tabs>
-        </td>
-      </tr>
+      </Card>
     </>
   )
 }

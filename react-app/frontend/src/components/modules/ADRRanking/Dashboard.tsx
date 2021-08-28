@@ -2,10 +2,10 @@ import MaterialTable from '@material-table/core';
 import { linkBinanceFeature } from '../../atomos/link';
 import { Typography } from '@material-ui/core';
 import { isUndefined } from 'lodash';
-import { SparklinePriceVol} from '../../atomos/sline';
+import { SparklinePriceVol,SparklineADRInfo} from '../../atomos/sline';
 import useSWR from 'swr';
 
-export const Dashboard = () => {
+export const Dashboard = (p:{method:string}) => {
   const {data : info} = useSWR(
     'https://kousotsu-py.info/cryptoinfo/API/ADRRank/ARR0'
     ,{refreshInterval:30000}
@@ -39,10 +39,8 @@ export const Dashboard = () => {
   }
   return (
     <>
-    <Typography style={{backgroundColor:'blue',paddingLeft:5}}>本日の最大ボラティリティ</Typography>
     <MaterialTable
     style={{
-      maxWidth:360,
       backgroundColor:'#111111',
     }}
     columns={[
@@ -66,14 +64,24 @@ export const Dashboard = () => {
         render: row => percentCol(row),
         width:110,
         customSort:(a,b)=>(a.Value - b.Value),
-      },      
+      },
+      {
+        title: <div>AVG(%)<br/>前日迄</div>,
+        field: 'AVG',
+        render: row => SparklineADRInfo({symbol:row.Pair,method:p.method}),
+        width:110,
+        customSort:(a,b)=>(a.AVG - b.AVG),
+        sorting:false,
+      }, 
+      /*
       {
         title: <div>偏差値</div>,
         field: 'DV',
         render: row => dvCol(row.DV),
         width:100,
         customSort:(a,b)=>(a.DV - b.DV),
-      },      
+      },
+      */
     ]}
     data={info.Result}
     options={{
@@ -81,7 +89,7 @@ export const Dashboard = () => {
       sorting:true,
       search:true,
       showTitle: false,
-      paging:true,
+      paging:false,
       tableLayout:'fixed',
       rowStyle:{
         maxHeight:30,
@@ -91,7 +99,7 @@ export const Dashboard = () => {
         paddingBottom:1,
       },
       header:true,
-      minBodyHeight:360,      
+      maxBodyHeight:740,      
       headerStyle:{
         position:'sticky',top:0,
         maxHeight:30,
