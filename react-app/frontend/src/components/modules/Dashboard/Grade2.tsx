@@ -152,6 +152,7 @@ export const Dashboard = (p:{symbol:string,span:string}) => {
             <td style={{textAlign:'center'}}>{colRank(dataBBWR.Result.Rank)}</td>
             <td style={{textAlign:'center'}}>{colRank(dataRSI.Result.Rank)}</td>
           </tr>
+          {/*
           <tr  style={{backgroundColor:"#222222"}}>
             <td></td>
             <td colSpan={3}>
@@ -164,6 +165,7 @@ export const Dashboard = (p:{symbol:string,span:string}) => {
               <TrendChart symbol={'BTCUSDT'} span={p.span} width={chart_width} height={chart_height} />
             </td>
           </tr>
+          */}
         </tbody>
         </table>
         </>

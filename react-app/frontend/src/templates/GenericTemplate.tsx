@@ -283,6 +283,14 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemText primary="テクニカル分析" />
               </ListItem>
             </Link>
+            <Link to="/Evaluation" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="銘柄分析" />
+              </ListItem>
+            </Link>
             <Link to="/Test" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>

@@ -6,22 +6,27 @@ import { fetchFSymbol } from "../../atomos/FetchAPIData";
 import TextField from '@material-ui/core/TextField';
 import CRInfo from './CRInfo';
 import { isUndefined } from 'lodash';
-import Grade from './Grade';
+import PriceTrend from './PriceBoard';
 import Grade2 from './Grade2';
 import { Typography,Card } from '@material-ui/core';
 import { PriceInfo2, RSITrend } from '../../block/SparkLineCol';
+import LSRatioChart from '../../modules/LongShortRatio/Dashboard'
 
 const TestPage: React.FC = () => {
   const layout = [
     { i: 'symbolSelect', x: 0, y: 0, w: 20, h: 3, static:true},
     { i: 'TrendInfo', x: 0, y: 3, w: 320, h: 10, static: true },
     { i: 'TrendInfo2', x: 320, y: 3, w: 320, h: 10, static: true },
-    { i: 'CRInfo', x: 0, y: 13, w: 650, h: 8, static: true },
-    { i: 'Grade15M', x: 0, y: 21, w: 700, h:30 , static: false },
-    { i: 'Grade1H', x: 700, y: 21, w: 700, h:30 , static: false },
-    { i: 'Grade4H', x: 0, y: 51, w: 700, h:30 , static: false },
-    { i: 'Grade6H', x: 700, y: 51, w: 700, h:30 , static: false },
-    { i: 'Grade1D', x: 0, y: 81, w: 700, h:30 , static: false },
+    { i: 'CRInfo', x: 640, y: 3, w: 750, h: 8, static: true },
+    { i: 'Grade15M', x: 0, y: 40, w: 700, h:10 , static: false },
+    { i: 'Grade1H', x: 0, y: 50, w: 700, h:10 , static: false },
+    { i: 'Grade4H', x: 0, y: 60, w: 700, h:10 , static: false },
+    { i: 'Grade6H', x: 0, y: 70, w: 700, h:10 , static: false },
+    { i: 'Grade1D', x: 0, y: 80, w: 700, h:10 , static: false },
+    { i: 'LSRatio', x: 700, y: 40, w: 800, h:25 , static: false },
+    { i: 'PriceTrend', x: 0, y: 20, w: 1200, h:9 , static: false },
+    { i: 'PriceTrend2', x: 0, y: 30, w: 1200, h:9, static: false },
+    
   ];
   const [pair,setPair] = useState('ALICEUSDT')
 
@@ -65,24 +70,33 @@ const TestPage: React.FC = () => {
       <div key="CRInfo" >
            <CRInfo symbol={pair}/>
       </div>
+      <div key='LSRatio'>
+      <LSRatioChart symbol={pair}  />
+      </div>
+      <div key='PriceTrend'>
+        <PriceTrend symbol={pair} />
+      </div>
+      <div key='PriceTrend2'>
+        <PriceTrend symbol={'BTCUSDT'} />
+      </div>
       <Card key="Grade15M">
         <Typography style={{backgroundColor:'#2c4f54',padding:5}}>15min</Typography>
       <Grade2 symbol={pair} span={'15M'} />
       </Card>
       <Card key="Grade1H">
-        <Typography style={{backgroundColor:'#1f3134',padding:5}}>1hour</Typography>
+        <Typography style={{backgroundColor:'#2c4f54',padding:5}}>1hour</Typography>
       <Grade2 symbol={pair} span={'1H'} />
       </Card>
       <Card key="Grade4H">
-        <Typography style={{backgroundColor:'#47585c',padding:5}}>4hour</Typography>
+        <Typography style={{backgroundColor:'#2c4f54',padding:5}}>4hour</Typography>
       <Grade2 symbol={pair} span={'4H'} />
       </Card>
       <Card key="Grade6H">
-        <Typography style={{backgroundColor:'#485859',padding:5}}>6hour</Typography>
+        <Typography style={{backgroundColor:'#2c4f54',padding:5}}>6hour</Typography>
       <Grade2 symbol={pair} span={'6H'} />
       </Card>
       <Card key="Grade1D">
-        <Typography style={{backgroundColor:'#6c848d',padding:5}}>1day</Typography>
+        <Typography style={{backgroundColor:'#2c4f54',padding:5}}>1day</Typography>
       <Grade2 symbol={pair} span={'1D'} />
       </Card>
     </ReactGridLayout>

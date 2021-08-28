@@ -11,6 +11,7 @@ import HighLowAnalysisPage from "./pages/HighLowAnalysisPage";
 import CompareChangeRatePage from "./pages/CompareChangeRatePage";
 import TestPage from "./pages/TestPage";
 import TechnicalPage from "./pages/TechnicalPage";
+import EvaluationPage from "./pages/Evaluation";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <Route path="/CRListSpotBtc" component={ChangeRateSpotBtcPage} exact />
         <Route path="/HighLowAnalysis" component={HighLowAnalysisPage} exact />
         <Route path="/CompareChangeRate" component={CompareChangeRatePage} exact />
+        <Route path="/Evaluation" component={EvaluationPage} exact />
         <Route path="/Test" component={TestPage} exact />
         <Route path="/Technical" component={TechnicalPage} exact />
         <Route path="/mobile" component={()=>{
