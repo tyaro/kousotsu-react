@@ -10,7 +10,9 @@ import PriceTrend from './PriceBoard';
 import Grade2 from './Grade2';
 import { Typography,Card } from '@material-ui/core';
 import { PriceInfo2, RSITrend } from '../../block/SparkLineCol';
-import LSRatioChart from '../../modules/LongShortRatio/Dashboard'
+import LSARatioChart from '../../modules/LongShortRatio/Dashboard'
+import LSPRatioChart from '../../modules/LongShortRatio/Dashboard3'
+import BSRatioChart from '../../modules/LongShortRatio/Dashboard2'
 
 const TestPage: React.FC = () => {
   const layout = [
@@ -23,7 +25,9 @@ const TestPage: React.FC = () => {
     { i: 'Grade4H', x: 0, y: 60, w: 700, h:10 , static: false },
     { i: 'Grade6H', x: 0, y: 70, w: 700, h:10 , static: false },
     { i: 'Grade1D', x: 0, y: 80, w: 700, h:10 , static: false },
-    { i: 'LSRatio', x: 700, y: 40, w: 800, h:25 , static: false },
+    { i: 'LSARatio', x: 700, y: 40, w: 800, h:25 , static: false },
+    { i: 'LSPRatio', x: 700, y: 65, w: 800, h:25 , static: false },
+    { i: 'BSRatio', x: 700, y: 80, w: 800, h:25 , static: false },
     { i: 'PriceTrend', x: 0, y: 20, w: 1200, h:9 , static: false },
     { i: 'PriceTrend2', x: 0, y: 30, w: 1200, h:9, static: false },
     
@@ -70,8 +74,14 @@ const TestPage: React.FC = () => {
       <div key="CRInfo" >
            <CRInfo symbol={pair}/>
       </div>
-      <div key='LSRatio'>
-      <LSRatioChart symbol={pair}  />
+      <div key='LSARatio'>
+      <LSARatioChart symbol={pair}  />
+      </div>
+      <div key='LSPRatio'>
+      <LSPRatioChart symbol={pair}  />
+      </div>
+      <div key='BSRatio'>
+      <BSRatioChart symbol={pair}  />
       </div>
       <div key='PriceTrend'>
         <PriceTrend symbol={pair} />

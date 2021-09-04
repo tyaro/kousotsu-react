@@ -1,5 +1,5 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import RatioChart from './RatioChart';
+import RatioChart from './RatioChart2';
 import {useState} from 'react'
 import { Card, Typography } from '@material-ui/core'
 
@@ -9,7 +9,7 @@ const Dashboard = (p:{symbol:string}) => {
     return (
         <>
         <Card style={{backgroundColor:'black'}}>
-        <Typography style={{backgroundColor:'blue',padding:5}}>トップトレーダーロングショートアカウント比率</Typography>
+        <Typography style={{backgroundColor:'blue',padding:5}}>Taker 売買出来高</Typography>
         <Tabs  defaultIndex={state} onSelect={(index)=>setState(index)}>
         <TabPanel><RatioChart symbol={pair} span={'5m'} /></TabPanel>
         <TabPanel><RatioChart symbol={pair} span={'15m'} /></TabPanel>

@@ -323,6 +323,21 @@ export const fetchRSITrendInfo = (props:{symbol:string,span:string}):any=>{
 
 }
 
+// BB%B情報
+export const fetchBBBRank = (props:{span:string}):any=>{
+  const span = parseSpanType3(props.span)
+  const url = 'https://kousotsu-py.info/cryptoinfo/API/V3/BBB/RANK/' + span
+  const {data : info} = useSWR(
+    url
+    ,{refreshInterval:30000}
+  )
+  var value = undefined
+  if (!isUndefined(info)){
+    value = info
+  }
+  return (value);
+
+}
 
 // BB%B情報
 export const fetchBBBInfo = (props:{symbol:string,span:string}):any=>{
@@ -356,7 +371,23 @@ export const fetchBBBTrendInfo = (props:{symbol:string,span:string}):any=>{
 
 }
 
-// BB%WR情報
+// BBWRランキング
+export const fetchBBWRRank = (props:{span:string}):any=>{
+  const span = parseSpanType3(props.span)
+  const url = 'https://kousotsu-py.info/cryptoinfo/API/V3/BBWR/RANK/' + span
+  const {data : info} = useSWR(
+    url
+    ,{refreshInterval:30000}
+  )
+  var value = undefined
+  if (!isUndefined(info)){
+    value = info
+  }
+  return (value);
+
+}
+
+// BBWR情報
 export const fetchBBWRInfo = (props:{symbol:string,span:string}):any=>{
   const span = parseSpanType3(props.span)
   const url = 'https://kousotsu-py.info/cryptoinfo/API/V3/BBWR/RANK/' + props.symbol + '/' + span

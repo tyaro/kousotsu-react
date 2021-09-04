@@ -307,7 +307,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemText primary="モバイル版" />
               </ListItem>
             </Link>
-            <Link to="/kojiki" className={classes.link}>
+            <Link to="/Donate" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
                   <AccountBalanceWalletIcon />

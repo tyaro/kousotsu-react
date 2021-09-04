@@ -18,7 +18,7 @@ const App: React.FC = () => {
     <Router>
       <Switch>
         <Route path="/Kst" component={KstPage} exact />
-        <Route path="/kojiki" component={btcPage} exact />
+        <Route path="/Donate" component={btcPage} exact />
         <Route path="/CRList" component={ChangeRatePage} exact />
         <Route path="/CRListSpot" component={ChangeRateSpotPage} exact />
         <Route path="/CRListSpotBtc" component={ChangeRateSpotBtcPage} exact />

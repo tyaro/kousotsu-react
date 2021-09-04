@@ -15,6 +15,7 @@ import VolRank1 from '../components/modules/Volume/List'
 import VolRank2 from '../components/modules/Volume/List2'
 import VolChart from '../components/modules/Volume/List3'
 import VolChart2 from '../components/modules/Volume/List4'
+import LSARatio from '../components/modules/LongShortRatio/TopTraderRatio';
 
 const HomePage: React.FC = () => {
   const [ fixflag,setFixflag] = useState(true)
@@ -35,6 +36,7 @@ const HomePage: React.FC = () => {
     { i: 'VolRank2', x: 450, y: 74, w: 450, h: 42, static:fixflag,},
     { i: 'VolChart', x: 750, y: 0, w: 500, h: 29, static:fixflag,},
     { i: 'VolChart2', x: 1250, y: 0, w: 500, h: 29, static:fixflag,},
+    { i: 'LSRatio', x: 900, y: 29, w: 800, h: 50, static:fixflag,},
     { i: 'ADRRank', x: 0, y: 116, w: 500, h: 28, static:fixflag,},
     { i: 'CRMTrend', x: 500, y: 116, w: 600, h: 20, static:fixflag,},
   ];
@@ -80,6 +82,9 @@ const HomePage: React.FC = () => {
     </div>
     <div key='VolChart2'>    
     <VolChart2 />
+    </div>
+    <div key='LSRatio'>    
+    <LSARatio />
     </div>
     <div key='ADRRank'>
       <ADRRank />

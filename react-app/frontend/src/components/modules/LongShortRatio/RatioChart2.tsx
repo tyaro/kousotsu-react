@@ -1,8 +1,10 @@
-import { fetchKlines, fetchTopLongShortAccountRatio } from '../../atomos/FetchBinanceAPI';
+import { fetchKlines, fetchLongShortRatio } from '../../atomos/FetchBinanceAPI';
 import { Line } from "react-chartjs-2";
 import { isUndefined } from 'lodash';
 import _ from 'lodash';
 import { Card, Typography } from '@material-ui/core';
+import { stackOrderDescending } from 'd3';
+import { spawnSync } from 'child_process';
 
 const RatioChart = (p:{symbol?:string,span:string}) => {
 
@@ -19,7 +21,7 @@ const RatioChart = (p:{symbol?:string,span:string}) => {
         limit=100
     }
 
-    const info = fetchTopLongShortAccountRatio({symbol:p.symbol,span:p.span,limit:limit})
+    const info = fetchLongShortRatio({symbol:p.symbol,span:p.span,limit:limit})
     const info2 = fetchKlines({symbol:p.symbol,span:p.span,limit:limit})
 
     if (isUndefined(info)||isUndefined(info2)){
@@ -28,10 +30,10 @@ const RatioChart = (p:{symbol?:string,span:string}) => {
         )
     }
     //ロングショート比率データ作成
-    const longAccount = _.map(info,'longAccount')
-    const long = _.map(longAccount,(value)=>value*100)
-    const shortAccount = _.map(info,'shortAccount')
-    const short = _.map(shortAccount,(value)=>value*100)
+    //const buyVol = _.map(info,'buyVol')
+    //const sellVol = _.map(info,'sellVol')
+    const buySellRatio = _.map(info,'buySellRatio')
+    const ratio = _.map(buySellRatio,(value)=>value*100-100)
     const timestamp = _.map(info,'timestamp')
     const labels = _.map(timestamp,(value)=>{
         let dateTime = new Date(value)
@@ -47,14 +49,33 @@ const RatioChart = (p:{symbol?:string,span:string}) => {
     const span = info2.length
     var closeData:number[] = new Array(span)
     var buyVolData:number[] = new Array(span)
-    var refData:number[] = new Array(span)
+    var sellVolData:number[] = new Array(span)
+    //var buySellVol:number[] = new Array(span)
+    var buySellVolDiff:number[] = new Array(span)
+    var volDisp:number[] = new Array(span)
+    var max = 0
+    var min = 0
+
     var i = 0
     _.forEach(info2,row=>{
         closeData[i] = row[4]
         buyVolData[i] = row[10]
-        refData[i] = 50
+        sellVolData[i] = row[7]-row[10]
+        volDisp[i] = row[7]-row[7]/2
+        if (row[4] > row[1]){ volDisp[i] = buyVolData[i] * 1}
+        else if( row[4] < row[1]){ volDisp[i]= sellVolData[i] * -1}
+        buySellVolDiff[i] = buyVolData[i]-sellVolData[i]
+        if(max<row[7]){max=row[7]*2}
+        if(min>volDisp[i]){min=volDisp[i]*2}
         i++
     })
+    /*
+    i = 0
+    _.forEach(info,row=>{
+        buySellVol[i] = row['buyVol'] - row['sellVol']
+        i++
+    })
+    */
 
     const data = {
         labels:labels,
@@ -71,37 +92,35 @@ const RatioChart = (p:{symbol?:string,span:string}) => {
             },
             {
                 type:'bar',
-                label:'Long Account',
-                data:long,
+                label:'Taker Buy Volume',
+                data:buyVolData,
                 fill:true,
                 backgroundColor: "rgba(92,198,134,0.5)",
                 //borderColor: "rgba(92,198,134,1)",
                 xAxisID:'x1',
                 yAxisID:'y1',
-                stacked:true,
             },
             {
                 type:'bar',
-                label:'Short Account',
-                data:short,
+                label:'Taker Sell Volume',
+                data:sellVolData,
                 fill:true,
                 backgroundColor: "rgba(227,85,97,0.5)",
                 //borderColor: "rgba(227,85,97,1)",
                 xAxisID:'x1',
                 yAxisID:'y1',
-                stacked:true,
             },
             {
                 type:'line',
-                label:'50% Line',
-                data:refData,
-                fill:false,
-                backgroundColor: "rgba(255,255,0,0.5)",
-                //borderColor: "rgba(255,255,0,1)",
+                label:'volume',
+                data:volDisp,
+                fill: {above: 'rgba(0,255,0,0.3)', below: 'rgba(255,0,0,0.3)', target: {value: 0}},
+                backgroundColor: "rgba(255,255,0,0.3)",
+                borderColor: "rgba(255,255,0,0.3)",
                 xAxisID:'x1',
-                yAxisID:'y1',
-                stacked:false,
-            }
+                yAxisID:'y3',
+                pointRadius:0,
+            },
         ]
     }
     const options={
@@ -117,13 +136,20 @@ const RatioChart = (p:{symbol?:string,span:string}) => {
             y1:{
                 type:'linear',
                 stacked:true,
-                min:0,
-                max:100,
+                max:max*2,
             },
             y2:{
                 type:'linear',
                 display:true,
                 position:'right',
+            },          
+            y3:{
+                type:'linear',
+                display:true,
+                position:'right',
+                min:min,
+                //min:-100,
+                //max:100,
             },
         },
     }

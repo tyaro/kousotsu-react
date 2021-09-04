@@ -1,4 +1,4 @@
-import { fetchKlines, fetchTopLongShortAccountRatio } from '../../atomos/FetchBinanceAPI';
+import { fetchKlines, fetchLongShortAccountRatio } from '../../atomos/FetchBinanceAPI';
 import { Line } from "react-chartjs-2";
 import { isUndefined } from 'lodash';
 import _ from 'lodash';
@@ -19,7 +19,7 @@ const RatioChart = (p:{symbol?:string,span:string}) => {
         limit=100
     }
 
-    const info = fetchTopLongShortAccountRatio({symbol:p.symbol,span:p.span,limit:limit})
+    const info = fetchLongShortAccountRatio({symbol:p.symbol,span:p.span,limit:limit})
     const info2 = fetchKlines({symbol:p.symbol,span:p.span,limit:limit})
 
     if (isUndefined(info)||isUndefined(info2)){
